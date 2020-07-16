@@ -1,0 +1,64 @@
+inherited view_Boletos_NmXhdpiPh: Tview_Boletos_NmXhdpiPh
+  ClientHeight = 615
+  ClientWidth = 400
+  DesignerMasterStyle = 0
+  inherited layoutPadrao: TLayout
+    Size.Width = 400.000000000000000000
+    Size.Height = 615.000000000000000000
+    inherited layoutTitle: TLayout
+      Size.Width = 400.000000000000000000
+      inherited rectangleTitle: TRectangle
+        Size.Width = 400.000000000000000000
+        inherited imageExit: TImage
+          MultiResBitmap.Height = 48
+          MultiResBitmap.Width = 48
+        end
+      end
+      inherited labelTitle: TLabel
+        Size.Width = 400.000000000000000000
+        TextSettings.Font.StyleExt = {00060000000100000004000000}
+      end
+    end
+    inherited layoutFiltro: TLayout
+      Size.Width = 400.000000000000000000
+      inherited buttonProcurar: TButton
+        StyledSettings = [Family, Size, Style]
+        IconTintColor = claWhite
+        Position.X = 152.000000000000000000
+        TextSettings.FontColor = claWhite
+      end
+      inherited buttonGravar: TButton
+        IconTintColor = claWhite
+      end
+      inherited labelValor: TLabel
+        Position.X = 240.000000000000000000
+      end
+      inherited labelValorValor: TLabel
+        Position.X = 240.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+      end
+    end
+    inherited stringGridBoletos: TStringGrid
+      Size.Width = 360.000000000000000000
+      Size.Height = 296.000000000000000000
+      Viewport.Width = 360.000000000000000000
+      Viewport.Height = 296.000000000000000000
+      inherited columnLinha: TColumn
+        Size.Width = 161.000000000000000000
+      end
+      inherited Column1: TColumn
+        Size.Width = 87.000000000000000000
+      end
+      inherited Column2: TColumn
+        Size.Width = 79.000000000000000000
+      end
+    end
+    inherited layoutRodape: TLayout
+      Position.Y = 521.000000000000000000
+      Size.Width = 400.000000000000000000
+      inherited labelValorSaldo: TLabel
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+      end
+    end
+  end
+end

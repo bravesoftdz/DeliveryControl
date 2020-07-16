@@ -1,0 +1,250 @@
+object DM_Main: TDM_Main
+  OldCreateOrder = False
+  Height = 444
+  Width = 649
+  object RESTClient: TRESTClient
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'http://localhost/API/dc/dc_lista_boletos_abertos.php'
+    ContentType = 'application/x-www-form-urlencoded'
+    Params = <
+      item
+        Name = 'entregador'
+        Value = '10212'
+      end>
+    RaiseExceptionOn500 = False
+    Left = 40
+    Top = 24
+  end
+  object RESTRequest: TRESTRequest
+    Client = RESTClient
+    Method = rmPOST
+    Params = <
+      item
+        Name = 'entregador'
+        Value = '10159'
+      end>
+    Response = RESTResponse
+    SynchronizedEvents = False
+    Left = 40
+    Top = 80
+  end
+  object RESTResponse: TRESTResponse
+    ContentType = 'application/json'
+    Left = 40
+    Top = 144
+  end
+  object RESTResponseDataSetAdapter: TRESTResponseDataSetAdapter
+    Dataset = memTableBoletos
+    FieldDefs = <>
+    Response = RESTResponse
+    Left = 160
+    Top = 16
+  end
+  object memTableExtrato: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired]
+    UpdateOptions.CheckRequired = False
+    StoreDefs = True
+    Left = 160
+    Top = 72
+    object memTableExtratoid_extrato: TWideStringField
+      DisplayLabel = 'ID'
+      FieldName = 'id_extrato'
+      Size = 255
+    end
+    object memTableExtratodat_inicio: TWideStringField
+      DisplayLabel = 'In'#237'cio'
+      FieldName = 'dat_inicio'
+      Size = 255
+    end
+    object memTableExtratodat_final: TWideStringField
+      DisplayLabel = 'Final'
+      FieldName = 'dat_final'
+      Size = 255
+    end
+    object memTableExtratonum_ano: TWideStringField
+      DisplayLabel = 'Ano'
+      FieldName = 'num_ano'
+      Size = 255
+    end
+    object memTableExtratonum_mes: TWideStringField
+      DisplayLabel = 'M'#234's'
+      FieldName = 'num_mes'
+      Size = 255
+    end
+    object memTableExtratonum_quinzena: TWideStringField
+      DisplayLabel = 'Quinzena'
+      FieldName = 'num_quinzena'
+      Size = 255
+    end
+    object memTableExtratocod_base: TWideStringField
+      DisplayLabel = 'Base'
+      FieldName = 'cod_base'
+      Size = 255
+    end
+    object memTableExtratocod_entregador: TWideStringField
+      DisplayLabel = 'Entregador'
+      FieldName = 'cod_entregador'
+      Size = 255
+    end
+    object memTableExtratonum_extrato: TWideStringField
+      DisplayLabel = 'N'#186' Extrato'
+      FieldName = 'num_extrato'
+      Size = 255
+    end
+    object memTableExtratoval_verba: TWideStringField
+      DisplayLabel = 'Verba Entregador'
+      FieldName = 'val_verba'
+      Size = 255
+    end
+    object memTableExtratoqtd_volumes: TWideStringField
+      DisplayLabel = 'Volumes'
+      FieldName = 'qtd_volumes'
+      Size = 255
+    end
+    object memTableExtratoqtd_volumes_extra: TWideStringField
+      DisplayLabel = 'Vol. Extra'
+      FieldName = 'qtd_volumes_extra'
+      Size = 255
+    end
+    object memTableExtratoval_volumes_extra: TWideStringField
+      DisplayLabel = 'Val. Vol. Extra'
+      FieldName = 'val_volumes_extra'
+      Size = 255
+    end
+    object memTableExtratoqtd_entregas: TWideStringField
+      DisplayLabel = 'Entregas'
+      FieldName = 'qtd_entregas'
+      Size = 255
+    end
+    object memTableExtratoqtd_atraso: TWideStringField
+      DisplayLabel = 'Atraso'
+      FieldName = 'qtd_atraso'
+      Size = 255
+    end
+    object memTableExtratoval_performance: TWideStringField
+      DisplayLabel = 'Performance'
+      FieldName = 'val_performance'
+      Size = 255
+    end
+    object memTableExtratoval_producao: TWideStringField
+      DisplayLabel = 'Producao'
+      FieldName = 'val_producao'
+      Size = 255
+    end
+    object memTableExtratoval_creditos: TWideStringField
+      DisplayLabel = 'Cr'#233'ditos'
+      FieldName = 'val_creditos'
+      Size = 255
+    end
+    object memTableExtratoval_debitos: TWideStringField
+      DisplayLabel = 'D'#233'bitos'
+      FieldName = 'val_debitos'
+      Size = 255
+    end
+    object memTableExtratoval_extravios: TWideStringField
+      DisplayLabel = 'Extravios'
+      FieldName = 'val_extravios'
+      Size = 255
+    end
+    object memTableExtratoval_total_expressa: TWideStringField
+      DisplayLabel = 'Total'
+      FieldName = 'val_total_expressa'
+      Size = 255
+    end
+    object memTableExtratoval_total_empresa: TWideStringField
+      DisplayLabel = 'Total Empresa'
+      FieldName = 'val_total_empresa'
+      Size = 255
+    end
+    object memTableExtratocod_cliente: TWideStringField
+      DisplayLabel = 'Cliente'
+      FieldName = 'cod_cliente'
+      Size = 255
+    end
+    object memTableExtratodat_credito: TWideStringField
+      DisplayLabel = 'Data Cr'#233'dito'
+      FieldName = 'dat_credito'
+      Size = 255
+    end
+    object memTableExtratodes_unique_key: TWideStringField
+      DisplayLabel = 'UK'
+      FieldName = 'des_unique_key'
+      Size = 255
+    end
+  end
+  object memTableDatasCreditos: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 160
+    Top = 128
+    object memTableDatasCreditosdat_credito: TWideStringField
+      FieldName = 'dat_credito'
+      Size = 255
+    end
+  end
+  object memTableBoletos: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 160
+    Top = 184
+    object memTableBoletosid_boleto: TWideStringField
+      FieldName = 'id_boleto'
+      Size = 255
+    end
+    object memTableBoletosnum_extrato: TWideStringField
+      FieldName = 'num_extrato'
+      Size = 255
+    end
+    object memTableBoletosdat_credito: TWideStringField
+      FieldName = 'dat_credito'
+      Size = 255
+    end
+    object memTableBoletosnum_linha_boleto: TWideStringField
+      FieldName = 'num_linha_boleto'
+      Size = 255
+    end
+    object memTableBoletosval_boleto: TWideStringField
+      FieldName = 'val_boleto'
+      Size = 255
+    end
+    object memTableBoletoscod_expressa: TWideStringField
+      FieldName = 'cod_expressa'
+      Size = 255
+    end
+    object memTableBoletosdat_cadastro: TWideStringField
+      FieldName = 'dat_cadastro'
+      Size = 255
+    end
+    object memTableBoletosnom_usuario: TWideStringField
+      FieldName = 'nom_usuario'
+      Size = 255
+    end
+    object memTableBoletosdom_recebido: TWideStringField
+      FieldName = 'dom_recebido'
+      Size = 255
+    end
+  end
+end
