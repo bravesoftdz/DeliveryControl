@@ -5,12 +5,12 @@ object DM_Main: TDM_Main
   object RESTClient: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
     AcceptCharset = 'utf-8, *;q=0.8'
-    BaseURL = 'http://localhost/API/dc/dc_lista_boletos_abertos.php'
+    BaseURL = 'http://localhost/API/dc/dc_extravios_entregador.php'
     ContentType = 'application/x-www-form-urlencoded'
     Params = <
       item
         Name = 'entregador'
-        Value = '10212'
+        Value = '10046'
       end>
     RaiseExceptionOn500 = False
     Left = 40
@@ -22,7 +22,7 @@ object DM_Main: TDM_Main
     Params = <
       item
         Name = 'entregador'
-        Value = '10159'
+        Value = '10046'
       end>
     Response = RESTResponse
     SynchronizedEvents = False
@@ -35,7 +35,7 @@ object DM_Main: TDM_Main
     Top = 144
   end
   object RESTResponseDataSetAdapter: TRESTResponseDataSetAdapter
-    Dataset = memTableBoletos
+    Dataset = memTableExtravios
     FieldDefs = <>
     Response = RESTResponse
     Left = 160
@@ -246,5 +246,76 @@ object DM_Main: TDM_Main
       FieldName = 'dom_recebido'
       Size = 255
     end
+  end
+  object memTableEntregas: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 160
+    Top = 240
+    object memTableEntregascod_entregador: TWideStringField
+      FieldName = 'cod_entregador'
+      Size = 255
+    end
+    object memTableEntregasval_verba: TWideStringField
+      FieldName = 'val_verba'
+      Size = 255
+    end
+    object memTableEntregasqtd_entregas: TWideStringField
+      FieldName = 'qtd_entregas'
+      Size = 255
+    end
+    object memTableEntregasnum_extrato: TWideStringField
+      FieldName = 'num_extrato'
+      Size = 255
+    end
+  end
+  object memTableExtravios: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 160
+    Top = 296
+    object memTableExtraviosdes_extravio: TWideStringField
+      FieldName = 'des_extravio'
+      Size = 255
+    end
+    object memTableExtraviosnum_nossonumero: TWideStringField
+      FieldName = 'num_nossonumero'
+      Size = 255
+    end
+    object memTableExtravioscod_entregador: TWideStringField
+      FieldName = 'cod_entregador'
+      Size = 255
+    end
+    object memTableExtraviosval_total: TWideStringField
+      FieldName = 'val_total'
+      Size = 255
+    end
+  end
+  object memTableLancamentos: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 160
+    Top = 352
   end
 end

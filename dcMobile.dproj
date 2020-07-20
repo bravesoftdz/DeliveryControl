@@ -6,7 +6,7 @@
         <MainSource>dcMobile.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Android</Platform>
         <TargetedPlatforms>37983</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -439,8 +439,8 @@
             <Form>view_Boletos</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="Model\Model.RESTExtrato.pas"/>
-        <DCCReference Include="Controller\Controller.RESTExtratos.pas"/>
+        <DCCReference Include="Model\Model.RESTExtravios.pas"/>
+        <DCCReference Include="Controller\Controller.RESTExtravios.pas"/>
         <DCCReference Include="Model\Model.RESTPlanilhaCredito.pas"/>
         <DCCReference Include="Controller\Controller.RESTPlanilhaCredito.pas"/>
         <DCCReference Include="View\View.Cadastro.pas">
@@ -453,6 +453,10 @@
             <Form>view_BaixaBoletos</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Model\Model.RESTExtrato.pas"/>
+        <DCCReference Include="Controller\Controller.RESTExtratos.pas"/>
+        <DCCReference Include="Model\Model.RESTEentregas.pas"/>
+        <DCCReference Include="Controller\Controller.RESTEntregas.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

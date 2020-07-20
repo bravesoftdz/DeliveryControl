@@ -6,10 +6,10 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts,
   System.Actions, FMX.ActnList, FMX.ListBox, FMX.Edit, FMX.EditBox, FMX.NumberBox, System.DateUtils, FMX.ComboEdit,
-  Controller.RESTExtratos, Data.DB, System.Rtti, FMX.Grid.Style, FMX.ScrollBox,
+  Data.DB, System.Rtti, FMX.Grid.Style, FMX.ScrollBox,
   FMX.Grid, Fmx.Bind.Grid, System.Bindings.Outputs, Fmx.Bind.Editors,
   Data.Bind.EngExt, Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.Grid,
-  Data.Bind.DBScope, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView;
+  Data.Bind.DBScope, Controller.RESTExtravios, Controller.RESTEntregas;
 
 type
   Tview_Extratos = class(TForm)
@@ -21,17 +21,8 @@ type
     labelMes: TLabel;
     labelQuinzena: TLabel;
     stringGridExtrato: TStringGrid;
-    columnEntregas: TColumn;
-    columnVerba: TColumn;
-    columnProducao: TColumn;
     layoutFooter: TLayout;
-    labelDebitos: TLabel;
-    labelCreditos: TLabel;
-    labelExtravios: TLabel;
     labelTotal: TLabel;
-    labelValorDebitos: TLabel;
-    labelValorCreditos: TLabel;
-    labelValorExtravios: TLabel;
     labelValorTotal: TLabel;
     comboBoxAno: TComboBox;
     comboBoxMes: TComboBox;
@@ -41,7 +32,8 @@ type
     rectangleTitle: TRectangle;
     imageExit: TImage;
     labelTitle: TLabel;
-    listViewExtrato: TListView;
+    stringColumnDescricao: TStringColumn;
+    stringColumnValor: TStringColumn;
     procedure imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure FormCreate(Sender: TObject);
     procedure rectangleFilterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
@@ -52,14 +44,19 @@ type
   private
     { Private declarations }
     procedure SetupYears;
-    procedure ProcessExtrato(sEntregador, sAno, sMes, sQuinzena: String);
+    procedure ProcessExtrato(sentregador, sdataini, sdatafim: String);
+    procedure ProcessaExtravios(sEntregador, sExtratos: String);
     procedure LimpaTela;
+    procedure MontaPeriodo(iAno, iMes, iQuinzena: Integer);
   public
     { Public declarations }
   end;
 
 var
   view_Extratos: Tview_Extratos;
+  dtDataInicial : TDate;
+  dtDataFinal : TDate;
+  dTotal: Double;
 
 implementation
 
@@ -72,7 +69,9 @@ uses DM.Main, Common.Params;
 procedure Tview_Extratos.actionProcessarExecute(Sender: TObject);
 begin
   LimpaTela;
-  ProcessExtrato( Common.Params.paramCodeDelivery.ToString, comboBoxAno.Items[comboBoxAno.ItemIndex],comboBoxMes.ItemIndex.ToString, comboBoxQuinzena.ItemIndex.ToString);
+  MontaPeriodo(StrToInt(comboBoxAno.Items[comboBoxAno.ItemIndex]), comboBoxMes.ItemIndex, comboBoxQuinzena.ItemIndex);
+  ProcessExtrato(Common.Params.paramCodeDelivery.ToString, FormatDateTime('yyyy-mm-dd', dtDataInicial),
+  FormatDateTime('yyyy-mm-dd', dtDataFinal));
 end;
 
 procedure Tview_Extratos.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -97,57 +96,187 @@ end;
 
 procedure Tview_Extratos.LimpaTela;
 begin
-  labelValorDebitos.Text := '0,00';
-  labelValorCreditos.Text := '0,00';
-  labelValorExtravios.Text := '0,00';
   labelValorTotal.Text := '0,00';
   stringGridExtrato.RowCount := 0;
 end;
 
-procedure Tview_Extratos.ProcessExtrato(sEntregador, sAno, sMes, sQuinzena: String);
+procedure Tview_Extratos.MontaPeriodo(iAno, iMes, iQuinzena: Integer);
 var
-  FExtrato: TRESTExtratosController;
+  iDiaInicio, iDiaFinal, iMesData, iAnoData: Integer;
+  sData: String;
+  datData, datBase: TDate;
+begin
+  iAnoData := iAno;
+  if iQuinzena = 1 then
+  begin
+    iDiaInicio := 26;
+    iDiaFinal := 10;
+  end
+  else if iQuinzena = 2 then
+  begin
+    iDiaInicio := 11;
+    iDiaFinal := 25;
+  end
+  else if iQuinzena = 3 then
+  begin
+    iDiaInicio := 1;
+    iDiaFinal := 15;
+  end
+  else if iQuinzena = 4 then
+  begin
+    iDiaInicio := 16;
+    sData := '01/' + FormatFloat('00', iMes) + '/' + IntToStr(iAnoData);
+    iDiaFinal := DaysInMonth(StrToDate(sData));
+  end;
+  if iDiaInicio > iDiaFinal then
+  begin
+    if iMes = 1 then
+    begin
+      iMesData := 12;
+      iAnoData := iAnoData - 1;
+      sData := FormatFloat('00', iDiaInicio) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
+    end
+    else
+    begin
+      iMesData := iMes - 1;
+      iAnoData := iAno;
+      sData := FormatFloat('00', iDiaInicio) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
+    end;
+    dtDataInicial := StrToDate(sData);
+    iMesData := iMes;
+    iAnoData := iAno;
+    sData := FormatFloat('00', iDiaFinal) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
+    dtDataFinal := StrToDate(sData);
+  end
+  else
+  begin
+    iMesData := iMes;
+    iAnoData := iAno;
+    sData := FormatFloat('00', iDiaInicio) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
+    dtDataInicial := StrToDate(sData);
+    iMesData := iMes;
+    iAnoData := iAno;
+    if iDiaFinal = 31 then
+    begin
+      iDiaFinal := DaysInMonth(StrToDate(sData));
+    end;
+    sData := FormatFloat('00', iDiaFinal) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
+    dtDataFinal := StrToDate(sData);
+  end;
+end;
+
+procedure Tview_Extratos.ProcessaExtravios(sEntregador, sExtratos: String);
+var
+  FExtravios: TRESTExtraviossController;
   i: Integer;
-  dCreditos, dDebitos, dExtravios, dTotal: Double;
-  itemList: TListViewItem;
+  dValor : Double;
+  sDescricao: String;
 begin
   try
-    FExtrato := TRESTExtratosController.Create;
-    if FExtrato.SearchExtrato(sEntregador, sAno, sMes, sQuinzena) then
+    FExtravios := TRESTExtraviossController.Create;
+    if FExtravios.SearchExtraviosEntregador(sentregador) then
     begin
-      DM_Main.memTableExtrato.First;
-      i := 0;
-      stringGridExtrato.RowCount := DM_Main.memTableExtrato.RecordCount;
-      dCreditos := 0;
-      dDebitos := 0;
-      dExtravios := 0;
-      dTotal := 0;
-      listViewExtrato.Items.Clear;
-      listViewExtrato.BeginUpdate;
-      while not DM_Main.memTableExtrato.Eof do
+      DM_Main.memTableExtravios.First;
+      i := stringGridExtrato.RowCount;
+      sExtratos := '';
+      stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableExtravios.RecordCount;
+      while not DM_Main.memTableExtravios.Eof do
       begin
-        stringGridExtrato.Cells[0,i] := FormatFloat('#,##;(#,##)', StrToIntDef(DM_Main.memTableExtratoqtd_entregas.AsString, 0));
-        stringGridExtrato.Cells[1,i] := FormatFloat('#,##0.00;(#,##0.00)', StrToFloatDef(StringReplace(DM_Main.memTableExtratoval_verba.AsString, '.', ',', [rfReplaceAll]),0));
-        stringGridExtrato.Cells[2,i] := FormatFloat('#,##0.00;(#,##0.00)', StrToFloatDef(StringReplace(DM_Main.memTableExtratoval_producao.AsString, '.', ',', [rfReplaceAll]),0));
-        dCreditos := dCreditos + StrToFloatDef(StringReplace(DM_Main.memTableExtratoval_creditos.AsString, '.', ',', [rfReplaceAll]),0);
-        dDebitos := dDebitos + StrToFloatDef(StringReplace(DM_Main.memTableExtratoval_debitos.AsString, '.', ',', [rfReplaceAll]),0);
-        dExtravios := dExtravios + StrToFloatDef(StringReplace(DM_Main.memTableExtratoval_extravios.AsString, '.', ',', [rfReplaceAll]),0);
-        dTotal := dTotal + StrToFloatDef(StringReplace(DM_Main.memTableExtratoval_total_expressa.AsString, '.', ',', [rfReplaceAll]),0);
-        itemList := listViewExtrato.Items.Add;
-        itemList.IndexTitle := 'Qtde: ' + FormatFloat('#,##0;(#,##0)', StrToIntDef(DM_Main.memTableExtratoqtd_entregas.AsString, 0));
-        itemList.Detail := 'Verba: ' + FormatFloat('#,##0.00;(#,##0.00)', StrToFloatDef(StringReplace(DM_Main.memTableExtratoval_verba.AsString, '.', ',', [rfReplaceAll]),0));;
-        itemList.Text := 'Total: ' + FormatFloat('#,##0.00;(#,##0.00)', StrToFloatDef(StringReplace(DM_Main.memTableExtratoval_producao.AsString, '.', ',', [rfReplaceAll]),0));
-        Inc(i, 1);
-        DM_Main.memTableExtrato.Next;
+        sDescricao := '';
+        dValor := 0 - StrToFloatDef(StringReplace(DM_Main.memTableExtraviosval_total.AsString, '.', ',', [rfReplaceAll]),0);
+        sDescricao := 'Extravio ' + DM_Main.memTableExtraviosdes_extravio.AsString + #13 + ' NN/Remessa ' +
+        DM_Main.memTableExtraviosnum_nossonumero.AsString;
+        if dValor < 0 then
+        begin
+          stringGridExtrato.Cells[0,i] := sDescricao;
+          stringGridExtrato.Cells[1,i] := FormatFloat('#,##0.00;-#,##0.00', dValor);
+          Inc(i, 1);
+          dTotal := dTotal + dValor;
+        end;
+        DM_Main.memTableExtravios.Next;
       end;
-      labelValorDebitos.Text := FormatFloat('#,##0.00;-#,##0.00', dDebitos);
-      labelValorCreditos.Text := FormatFloat('#,##0.00;-#,##0.00', dCreditos);
-      labelValorExtravios.Text := FormatFloat('#,##0.00;-#,##0.00', dExtravios);
-      labelValorTotal.Text := FormatFloat('#,##0.00;-#,##0.00', dTotal);
+    end;
+    if not sExtratos.IsEmpty then
+    begin
+      DM_Main.memTableExtravios.Close;
+      if FExtravios.SearchExtraviosExtrato(sExtratos) then
+      begin
+        DM_Main.memTableExtravios.First;
+        i := stringGridExtrato.RowCount;
+        sExtratos := '';
+        stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableExtravios.RecordCount;
+        while not DM_Main.memTableExtravios.Eof do
+        begin
+          sDescricao := '';
+          dValor := 0 - StrToFloatDef(StringReplace(DM_Main.memTableExtraviosval_total.AsString, '.', ',', [rfReplaceAll]),0);
+          sDescricao := 'Extravio ' + DM_Main.memTableExtraviosdes_extravio.AsString + #13 + ' NN/Remessa ' +
+          DM_Main.memTableExtraviosnum_nossonumero.AsString;
+          stringGridExtrato.Cells[0,i] := sDescricao;
+          stringGridExtrato.Cells[1,i] := FormatFloat('#,##0.00;-#,##0.00)', dValor);
+          Inc(i, 1);
+          dTotal := dTotal + dValor;
+          DM_Main.memTableExtravios.Next;
+        end;
+      end;
     end;
   finally
-    DM_Main.memTableExtrato.Close;
-    FExtrato.Free;
+    DM_Main.memTableExtravios.Close;
+    FExtravios.Free;
+  end;
+end;
+
+procedure Tview_Extratos.ProcessExtrato(sentregador, sdataini, sdatafim: String);
+var
+  FEntregas: TRESTEntregassController;
+  i: Integer;
+  iEntregas : Integer;
+  dVerba, dProducao: Double;
+  sDescricao: String;
+  sExtratos: String;
+begin
+  try
+    FEntregas := TRESTEntregassController.Create;
+    if FEntregas.SearchEntregas(sentregador, sdataini, sdatafim) then
+    begin
+      DM_Main.memTableEntregas.First;
+      i := 0;
+      sExtratos := '';
+      stringGridExtrato.RowCount := DM_Main.memTableEntregas.RecordCount;
+      dProducao := 0;
+      dTotal := 0;
+      while not DM_Main.memTableEntregas.Eof do
+      begin
+        sDescricao := '';
+        dVerba := StrToFloatDef(StringReplace(DM_Main.memTableEntregasval_verba.AsString, '.', ',', [rfReplaceAll]),0);
+        iEntregas := StrToIntDef(DM_Main.memTableEntregasqtd_entregas.AsString, 0);
+        sDescricao := FormatFloat('#,##0;(#,##0)', iEntregas) + ' entregas a ';
+        sDescricao := sDescricao + FormatFloat('R$ #,##0.00;(R$ #,##0.00)', dVerba);
+        dProducao := dVerba * iEntregas;
+        stringGridExtrato.Cells[0,i] := sDescricao;
+        stringGridExtrato.Cells[1,i] := FormatFloat('#,##0.00;(#,##0.00)', dProducao);
+        dTotal := dTotal + dProducao;
+        Inc(i, 1);
+        if DM_Main.memTableEntregasnum_extrato.Text.Length > 0 then
+        begin
+          if sExtratos.Length >  0 then
+          begin
+            if Pos(DM_Main.memTableEntregasnum_extrato.Text, sExtratos) = 0 then
+            begin
+              sExtratos := sExtratos + ',';
+            end;
+          end;
+          sExtratos := sExtratos + DM_Main.memTableEntregasnum_extrato.Text;
+        end;
+        DM_Main.memTableEntregas.Next;
+      end;
+
+      ProcessaExtravios(Common.Params.paramCodeDelivery.ToString, sExtratos);
+      labelValorTotal.Text := FormatFloat('#,##0.00;-#,##0.00', dTotal);
+
+    end;
+  finally
+    DM_Main.memTableEntregas.Close;
+    FEntregas.Free;
   end;
 end;
 

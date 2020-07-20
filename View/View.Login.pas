@@ -54,9 +54,7 @@ var
 
 implementation
 {$R *.fmx}
-{$R *.iPhone55in.fmx IOS}
 {$R *.LgXhdpiPh.fmx ANDROID}
-{$R *.NmXhdpiPh.fmx ANDROID}
 
 uses View.Main, Common.Params, View.Cadastro, View.BaixaBoletos;
 

@@ -57,7 +57,7 @@ end;
 function TRESTCadastro.CPFValido(sCPF: string): boolean;
 var
   jsonObj, jo: TJSONObject;
-  jvCodigo, jvNome, jvAtivo: TJSONValue;
+  jvCodigo, jvNome, jvAtivo, jvCadastro: TJSONValue;
   ja: TJSONArray;
   i: integer;
 begin
@@ -77,9 +77,12 @@ begin
     jvCodigo := jsonObj.Get(1).JsonValue;
     jvNome := jsonObj.Get(2).JsonValue;
     jvAtivo := jsonObj.Get(9).JsonValue;
+    jvCadastro := jsonObj.Get(0).JsonValue;
     Common.Params.paramCodeDelivery := StrToIntDef(jvCodigo.Value, 0);
+    Common.Params.paramCodigoCadastro := StrToIntDef(jvCadastro.Value, 0);
     Common.Params.paramNameUser := jvnome.Value;
     Common.Params.paramEntregadorAtivo := StrToIntDef(jvAtivo.Value, 0);
+
   end
   else
   begin
