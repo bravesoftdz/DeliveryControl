@@ -51,6 +51,17 @@ type
     memTableBoletosdat_cadastro: TWideStringField;
     memTableBoletosnom_usuario: TWideStringField;
     memTableBoletosdom_recebido: TWideStringField;
+    memTableEntregas: TFDMemTable;
+    memTableEntregascod_entregador: TWideStringField;
+    memTableEntregasval_verba: TWideStringField;
+    memTableEntregasqtd_entregas: TWideStringField;
+    memTableEntregasnum_extrato: TWideStringField;
+    memTableExtravios: TFDMemTable;
+    memTableLancamentos: TFDMemTable;
+    memTableExtraviosdes_extravio: TWideStringField;
+    memTableExtraviosnum_nossonumero: TWideStringField;
+    memTableExtravioscod_entregador: TWideStringField;
+    memTableExtraviosval_total: TWideStringField;
   private
     { Private declarations }
   public

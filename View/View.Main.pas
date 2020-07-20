@@ -10,10 +10,6 @@ uses
 type
   Tview_Main = class(TForm)
     layoutPadrao: TLayout;
-    layoutTitle: TLayout;
-    rectangleTitle: TRectangle;
-    imageExit: TImage;
-    labelTitle: TLabel;
     actionListMenu: TActionList;
     actionExit: TAction;
     layoutMenu: TLayout;
@@ -23,6 +19,10 @@ type
     rectangleBoleto: TRectangle;
     labelBoleto: TLabel;
     actionBoletos: TAction;
+    layoutTitle: TLayout;
+    rectangleTitle: TRectangle;
+    labelTitle: TLabel;
+    imageExit: TImage;
     procedure imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure actionExitExecute(Sender: TObject);
     procedure rectangleExtratoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
