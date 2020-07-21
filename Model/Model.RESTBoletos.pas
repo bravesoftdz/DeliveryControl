@@ -13,6 +13,7 @@ type
     function SalvaBoleto(sExtrato, sData, sLinha, sValor, sEntregador, sUserName: String): boolean;
     function BoletoExiste(sLinha: String): boolean;
     function ListaBoletos(sentregador: String): Boolean;
+    function BaixaBoleto(sLinha, sUserName: String): boolean;
   end;
 const
   API = '/API/dc';
@@ -38,6 +39,21 @@ begin
   DM_Main.RESTRequest.Accept := DM_Main.RESTClient.Accept;
   DM_Main.RESTRequest.AcceptCharset := DM_Main.RESTClient.AcceptCharset;
   DM_Main.RESTRequest.Method := rmPOST;
+end;
+
+function TRESTBoletos.BaixaBoleto(sLinha, sUserName: String): boolean;
+begin
+  Result := False;
+  StartRestRequest('/dc_baixa_boleto.php');
+  DM_Main.RESTRequest.AddParameter('linha', sLinha, pkGETorPOST);
+  DM_Main.RESTRequest.AddParameter('username', sUserName, pkGETorPOST);
+  DM_Main.RESTResponseDataSetAdapter.Active := False;
+  DM_Main.RESTRequest.Execute;
+  if DM_Main.RESTResponse.JSONText = 'false' then
+  begin
+    Exit;
+  end;
+  Result := True;
 end;
 
 function TRESTBoletos.BoletoExiste(sLinha: String): boolean;

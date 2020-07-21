@@ -57,11 +57,15 @@ type
     memTableEntregasqtd_entregas: TWideStringField;
     memTableEntregasnum_extrato: TWideStringField;
     memTableExtravios: TFDMemTable;
-    memTableLancamentos: TFDMemTable;
     memTableExtraviosdes_extravio: TWideStringField;
     memTableExtraviosnum_nossonumero: TWideStringField;
     memTableExtravioscod_entregador: TWideStringField;
     memTableExtraviosval_total: TWideStringField;
+    memTableLancamentos: TFDMemTable;
+    memTableLancamentosdes_lancamento: TWideStringField;
+    memTableLancamentosdat_lancamento: TWideStringField;
+    memTableLancamentosdes_tipo: TWideStringField;
+    memTableLancamentosval_lancamento: TWideStringField;
   private
     { Private declarations }
   public

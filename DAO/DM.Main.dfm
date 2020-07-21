@@ -5,12 +5,16 @@ object DM_Main: TDM_Main
   object RESTClient: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
     AcceptCharset = 'utf-8, *;q=0.8'
-    BaseURL = 'http://localhost/API/dc/dc_extravios_entregador.php'
+    BaseURL = 'http://localhost/API/dc/dc_lancamentos_entregador.php'
     ContentType = 'application/x-www-form-urlencoded'
     Params = <
       item
         Name = 'entregador'
-        Value = '10046'
+        Value = '36'
+      end
+      item
+        Name = 'data'
+        Value = '2020-06-25'
       end>
     RaiseExceptionOn500 = False
     Left = 40
@@ -30,16 +34,14 @@ object DM_Main: TDM_Main
     Top = 80
   end
   object RESTResponse: TRESTResponse
-    ContentType = 'application/json'
     Left = 40
     Top = 144
   end
   object RESTResponseDataSetAdapter: TRESTResponseDataSetAdapter
-    Dataset = memTableExtravios
     FieldDefs = <>
     Response = RESTResponse
     Left = 160
-    Top = 16
+    Top = 24
   end
   object memTableExtrato: TFDMemTable
     FieldDefs = <>
@@ -308,14 +310,32 @@ object DM_Main: TDM_Main
     end
   end
   object memTableLancamentos: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
     ResourceOptions.SilentMode = True
-    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.AssignedValues = [uvCheckRequired]
     UpdateOptions.CheckRequired = False
-    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
     Left = 160
     Top = 352
+    object memTableLancamentosdes_lancamento: TWideStringField
+      FieldName = 'des_lancamento'
+      Size = 255
+    end
+    object memTableLancamentosdat_lancamento: TWideStringField
+      FieldName = 'dat_lancamento'
+      Size = 255
+    end
+    object memTableLancamentosdes_tipo: TWideStringField
+      FieldName = 'des_tipo'
+      Size = 255
+    end
+    object memTableLancamentosval_lancamento: TWideStringField
+      FieldName = 'val_lancamento'
+      Size = 255
+    end
   end
 end

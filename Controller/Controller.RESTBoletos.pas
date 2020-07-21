@@ -14,11 +14,17 @@ type
     function SalvaBoleto(sExtrato, sData, sLinha, sValor, sEntregador, sUserName: String): boolean;
     function BoletoExiste(sLinha: String): boolean;
     function ListaBoletos(sentregador: String): Boolean;
+    function BaixaBoleto(sLinha, sUserName: String): boolean;
   end;
 
 implementation
 
 { TRESTBoletosController }
+
+function TRESTBoletosController.BaixaBoleto(sLinha, sUserName: String): boolean;
+begin
+  Result := FBoletos.BaixaBoleto(sLinha, sUserName);
+end;
 
 function TRESTBoletosController.BoletoExiste(sLinha: String): boolean;
 begin

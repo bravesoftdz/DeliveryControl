@@ -35,7 +35,6 @@ begin
   Result  := '0';
   sDataConv := FormatDateTime('yyyy-mm-dd', StrToDate(sData));
   StartRestRequest('/dc_valor_boleto.php');
-  DM_Main.RESTResponseDataSetAdapter.Dataset := DM_Main.memTableDatasCreditos;
   DM_Main.RESTRequest.AddParameter('entregador', sEntregador, pkGETorPOST);
   DM_Main.RESTRequest.AddParameter('data', sDataConv, pkGETorPOST);
   DM_Main.RESTResponseDataSetAdapter.Active := False;

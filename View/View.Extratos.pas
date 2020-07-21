@@ -9,7 +9,7 @@ uses
   Data.DB, System.Rtti, FMX.Grid.Style, FMX.ScrollBox,
   FMX.Grid, Fmx.Bind.Grid, System.Bindings.Outputs, Fmx.Bind.Editors,
   Data.Bind.EngExt, Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.Grid,
-  Data.Bind.DBScope, Controller.RESTExtravios, Controller.RESTEntregas;
+  Data.Bind.DBScope, Controller.RESTExtravios, Controller.RESTEntregas, Controller.RESTLancamentos;
 
 type
   Tview_Extratos = class(TForm)
@@ -46,6 +46,7 @@ type
     procedure SetupYears;
     procedure ProcessExtrato(sentregador, sdataini, sdatafim: String);
     procedure ProcessaExtravios(sEntregador, sExtratos: String);
+    procedure ProcessaLancamentos(sEntregador, sdata,sExtratos: String);
     procedure LimpaTela;
     procedure MontaPeriodo(iAno, iMes, iQuinzena: Integer);
   public
@@ -177,9 +178,12 @@ begin
     if FExtravios.SearchExtraviosEntregador(sentregador) then
     begin
       DM_Main.memTableExtravios.First;
-      i := stringGridExtrato.RowCount;
+      i := Pred(stringGridExtrato.RowCount);
       sExtratos := '';
-      stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableExtravios.RecordCount;
+      if not DM_Main.memTableExtravios.IsEmpty then
+      begin
+        stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableExtravios.RecordCount;
+      end;
       while not DM_Main.memTableExtravios.Eof do
       begin
         sDescricao := '';
@@ -196,23 +200,29 @@ begin
         DM_Main.memTableExtravios.Next;
       end;
     end;
+    sExtratos := Common.Params.paramNumeroExtrato;
     if not sExtratos.IsEmpty then
     begin
       DM_Main.memTableExtravios.Close;
       if FExtravios.SearchExtraviosExtrato(sExtratos) then
       begin
         DM_Main.memTableExtravios.First;
-        i := stringGridExtrato.RowCount;
-        sExtratos := '';
-        stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableExtravios.RecordCount;
+        i := Pred(stringGridExtrato.RowCount);
+        if not DM_Main.memTableExtravios.IsEmpty then
+        begin
+          stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableExtravios.RecordCount;
+        end;
         while not DM_Main.memTableExtravios.Eof do
         begin
           sDescricao := '';
           dValor := 0 - StrToFloatDef(StringReplace(DM_Main.memTableExtraviosval_total.AsString, '.', ',', [rfReplaceAll]),0);
           sDescricao := 'Extravio ' + DM_Main.memTableExtraviosdes_extravio.AsString + #13 + ' NN/Remessa ' +
           DM_Main.memTableExtraviosnum_nossonumero.AsString;
-          stringGridExtrato.Cells[0,i] := sDescricao;
-          stringGridExtrato.Cells[1,i] := FormatFloat('#,##0.00;-#,##0.00)', dValor);
+          if dValor < 0 then
+          begin
+            stringGridExtrato.Cells[0,i] := sDescricao;
+            stringGridExtrato.Cells[1,i] := FormatFloat('#,##0.00;-#,##0.00', dValor);
+          end;
           Inc(i, 1);
           dTotal := dTotal + dValor;
           DM_Main.memTableExtravios.Next;
@@ -225,6 +235,88 @@ begin
   end;
 end;
 
+procedure Tview_Extratos.ProcessaLancamentos(sEntregador, sdata, sExtratos: String);
+var
+  FLancamentos: TRESTLancamentosController;
+  i: Integer;
+  dValor : Double;
+  sDescricao: String;
+begin
+  try
+    FLancamentos := TRESTLancamentosController.Create;
+    if FLancamentos.SearchLancamentosEntregador(sentregador, sdata) then
+    begin
+      DM_Main.memTableLancamentos.First;
+      i := Pred(stringGridExtrato.RowCount);
+      sExtratos := '';
+      if not DM_Main.memTableLancamentos.IsEmpty then
+      begin
+        stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableLancamentos.RecordCount;
+      end;
+      while not DM_Main.memTableLancamentos.Eof do
+      begin
+        sDescricao := '';
+        if DM_Main.memTableLancamentosdes_tipo.AsString = 'DEBITO' then
+        begin
+          dValor := 0 - StrToFloatDef(StringReplace(DM_Main.memTableLancamentosval_lancamento.AsString, '.', ',', [rfReplaceAll]),0);
+        end
+        else
+        begin
+          dValor := StrToFloatDef(StringReplace(DM_Main.memTableLancamentosval_lancamento.AsString, '.', ',', [rfReplaceAll]),0);
+        end;
+        sDescricao := DM_Main.memTableLancamentosdes_lancamento.AsString;
+        if dValor <> 0 then
+        begin
+          stringGridExtrato.Cells[0,i] := sDescricao;
+          stringGridExtrato.Cells[1,i] := FormatFloat('#,##0.00;-#,##0.00', dValor);
+          Inc(i, 1);
+          dTotal := dTotal + dValor;
+        end;
+        DM_Main.memTableLancamentos.Next;
+      end;
+    end;
+    if not sExtratos.IsEmpty then
+    begin
+      DM_Main.memTableLancamentos.Close;
+      if FLancamentos.SearchLancamentosExtrato(sExtratos) then
+      begin
+        DM_Main.memTableLancamentos.First;
+        i := Pred(stringGridExtrato.RowCount);
+        if not DM_Main.memTableLancamentos.IsEmpty then
+        begin
+          stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableLancamentos.RecordCount;
+        end;
+        stringGridExtrato.RowCount := stringGridExtrato.RowCount + DM_Main.memTableLancamentos.RecordCount;
+        while not DM_Main.memTableLancamentos.Eof do
+        begin
+          sDescricao := '';
+          if DM_Main.memTableLancamentosdes_tipo.AsString = 'DEBITO' then
+          begin
+            dValor := 0 - StrToFloatDef(StringReplace(DM_Main.memTableLancamentosval_lancamento.AsString, '.', ',', [rfReplaceAll]),0);
+          end
+          else
+          begin
+            dValor := StrToFloatDef(StringReplace(DM_Main.memTableLancamentosval_lancamento.AsString, '.', ',', [rfReplaceAll]),0);
+          end;
+          sDescricao := DM_Main.memTableLancamentosdes_lancamento.AsString;
+          if dValor <> 0 then
+          begin
+            stringGridExtrato.Cells[0,i] := sDescricao;
+            stringGridExtrato.Cells[1,i] := FormatFloat('#,##0.00;-#,##0.00', dValor);
+            Inc(i, 1);
+            dTotal := dTotal + dValor;
+          end;
+          DM_Main.memTableLancamentos.Next;
+        end;
+      end;
+    end;
+  finally
+    DM_Main.memTableLancamentos.Close;
+    FLancamentos.Free;
+  end;
+
+end;
+
 procedure Tview_Extratos.ProcessExtrato(sentregador, sdataini, sdatafim: String);
 var
   FEntregas: TRESTEntregassController;
@@ -233,6 +325,7 @@ var
   dVerba, dProducao: Double;
   sDescricao: String;
   sExtratos: String;
+  sData: String;
 begin
   try
     FEntregas := TRESTEntregassController.Create;
@@ -258,19 +351,22 @@ begin
         Inc(i, 1);
         if DM_Main.memTableEntregasnum_extrato.Text.Length > 0 then
         begin
-          if sExtratos.Length >  0 then
+          if sExtratos.Length = 0 then
           begin
-            if Pos(DM_Main.memTableEntregasnum_extrato.Text, sExtratos) = 0 then
-            begin
-              sExtratos := sExtratos + ',';
-            end;
+            sExtratos := DM_Main.memTableEntregasnum_extrato.Text;;
           end;
-          sExtratos := sExtratos + DM_Main.memTableEntregasnum_extrato.Text;
+
         end;
         DM_Main.memTableEntregas.Next;
       end;
-
+      if not sExtratos.IsEmpty then
+      begin
+        Common.Params.paramNumeroExtrato := sExtratos;
+      end;
+      sData := FormatDateTime('yyyy-mm-dd', dtDataFinal);
       ProcessaExtravios(Common.Params.paramCodeDelivery.ToString, sExtratos);
+      ProcessaLancamentos(Common.Params.paramCodigoCadastro.ToString, sdata, sExtratos);
+
       labelValorTotal.Text := FormatFloat('#,##0.00;-#,##0.00', dTotal);
 
     end;

@@ -16,8 +16,8 @@ uses
   Model.RESTLogin in 'Model\Model.RESTLogin.pas',
   Controller.RESTLogin in 'Controller\Controller.RESTLogin.pas',
   View.Boletos in 'View\View.Boletos.pas' {view_Boletos},
-  Model.RESTExtravios in 'Model\Model.RESTExtravios.pas',
-  Controller.RESTExtravios in 'Controller\Controller.RESTExtravios.pas',
+  Model.RESTLancamentos in 'Model\Model.RESTLancamentos.pas',
+  Controller.RESTLancamentos in 'Controller\Controller.RESTLancamentos.pas',
   Model.RESTPlanilhaCredito in 'Model\Model.RESTPlanilhaCredito.pas',
   Controller.RESTPlanilhaCredito in 'Controller\Controller.RESTPlanilhaCredito.pas',
   View.Cadastro in 'View\View.Cadastro.pas' {view_Cadastro},
@@ -27,7 +27,9 @@ uses
   Model.RESTExtrato in 'Model\Model.RESTExtrato.pas',
   Controller.RESTExtratos in 'Controller\Controller.RESTExtratos.pas',
   Model.RESTEentregas in 'Model\Model.RESTEentregas.pas',
-  Controller.RESTEntregas in 'Controller\Controller.RESTEntregas.pas';
+  Controller.RESTEntregas in 'Controller\Controller.RESTEntregas.pas',
+  Model.RESTExtravios in 'Model\Model.RESTExtravios.pas',
+  Controller.RESTExtravios in 'Controller\Controller.RESTExtravios.pas';
 
 {$R *.res}
 

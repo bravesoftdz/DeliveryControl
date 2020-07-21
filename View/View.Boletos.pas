@@ -135,6 +135,8 @@ begin
     stringGridBoletos.RowCount := 0;
     FPlanilha := TRESTPlanilhaCreditoController.Create;
     sValor := FPlanilha.SearchValorBoleto(sEntregador, sData);
+    sValor := StringReplace(sValor,',','', [rfReplaceAll]);
+    sValor := StringReplace(sValor,'.',',', [rfReplaceAll]);
     dValorBoleto := StrToFloatDef(sValor,0);
     dValorRestante := StrToFloatDef(sValor,0);
     labelValorValor.Text := FormatFloat('###,##0.00;-###,##0.00', dValorBoleto);
