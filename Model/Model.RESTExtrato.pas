@@ -13,7 +13,7 @@ type
     function SearchExtrato(sEntregador, sAno, sMes, sQuinzena: String): Boolean;
   end;
 const
-  API = '/API/dc';
+  API = '/api/dc';
 
 implementation
 

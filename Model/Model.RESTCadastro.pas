@@ -15,7 +15,7 @@ type
     function CPFValido(sCPF: string): boolean;
   end;
 const
-  API = '/API/dc';
+  API = '/api/dc';
 
 implementation
 

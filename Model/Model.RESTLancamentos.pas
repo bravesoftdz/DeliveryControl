@@ -14,7 +14,7 @@ type
     function SearchLancamentosExtrato(sextrato: String): Boolean;
   end;
 const
-  API = '/API/dc';
+  API = '/api/dc';
 
 implementation
 

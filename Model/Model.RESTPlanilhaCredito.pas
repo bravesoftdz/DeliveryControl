@@ -15,7 +15,7 @@ type
     function SalvaStatusBoleto(sExtrato: String): boolean;
   end;
 const
-  API = '/API/dc';
+  API = '/api/dc';
 
 implementation
 

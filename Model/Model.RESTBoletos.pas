@@ -16,7 +16,7 @@ type
     function BaixaBoleto(sLinha, sUserName: String): boolean;
   end;
 const
-  API = '/API/dc';
+  API = '/api/dc';
 
 implementation
 

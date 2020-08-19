@@ -13,7 +13,7 @@ type
     function SearchEntregas(sentregador, sdataini, sdatafim: String): Boolean;
   end;
 const
-  API = '/API/dc';
+  API = '/api/dc';
 
 implementation
 

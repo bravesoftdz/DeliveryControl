@@ -47,7 +47,7 @@ uses
       function ValidaLogin(sUsername: String; sPassword: String): Boolean;
     end;
 const
-  API = '/API/dc';
+  API = '/api/dc';
 
 implementation
 
