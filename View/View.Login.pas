@@ -32,11 +32,14 @@ type
     labelTitle: TLabel;
     rectangleAccept: TRectangle;
     labelAcessar: TLabel;
+    Layout1: TLayout;
+    labelVersao: TLabel;
     procedure imageViewClick(Sender: TObject);
     procedure actionAcessarExecute(Sender: TObject);
     procedure actionCadastroExecute(Sender: TObject);
     procedure rectangleAcceptMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure rectangleAcceptMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     function ValidaLogin(sUsername: String; sPassword: String): Boolean;
@@ -117,6 +120,11 @@ begin
   finally
     FCadastro.Free;
   end;
+end;
+
+procedure Tview_Login.FormShow(Sender: TObject);
+begin
+  labelVersao.Text := 'Versão 1.0';
 end;
 
 procedure Tview_Login.imageViewClick(Sender: TObject);

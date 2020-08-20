@@ -4,17 +4,11 @@ Coordinates=746,628,75,51
 [layoutPadrao]
 Coordinates=359,784,79,33
 
-[labelSave]
-Coordinates=10,784,61,51
-
 [rectangleTitle]
 Coordinates=459,784,81,33
 
 [labelTitle]
 Coordinates=91,784,58,51
-
-[rectangleSave]
-Coordinates=252,784,84,33
 
 [actionListBoletos]
 Coordinates=249,111,100,33
@@ -61,7 +55,7 @@ Coordinates=368,10,151,33
 Visible=False
 
 []
-Coordinates=432,892,91,36
+Coordinates=252,784,84,33
 
 [BindSourceDB1]
 Coordinates=368,10,136,231

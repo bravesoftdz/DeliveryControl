@@ -36,12 +36,55 @@ object view_BaixaBoletos: Tview_BaixaBoletos
       Text = 'Boletos em Aberto'
       TabOrder = 0
     end
+    object listViewBoletos: TListView
+      ItemAppearanceClassName = 'TMultiDetailItemAppearance'
+      ItemEditAppearanceClassName = 'TMultiDetailDeleteAppearance'
+      HeaderAppearanceClassName = 'TListHeaderObjects'
+      FooterAppearanceClassName = 'TListHeaderObjects'
+      Align = Client
+      Margins.Left = 20.000000000000000000
+      Margins.Top = 20.000000000000000000
+      Margins.Right = 20.000000000000000000
+      Margins.Bottom = 20.000000000000000000
+      Size.Width = 311.000000000000000000
+      Size.Height = 341.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      ItemAppearanceObjects.HeaderObjects.Text.Font.StyleExt = {00070000000000000004000000}
+      StyleLookup = 'listviewstyle'
+      OnItemClick = listViewBoletosItemClick
+    end
+    object layoutAviso: TLayout
+      Align = Top
+      Position.Y = 80.000000000000000000
+      Size.Width = 351.000000000000000000
+      Size.Height = 97.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      object labelAviso: TLabel
+        Align = Client
+        StyledSettings = [Family, Size]
+        Margins.Left = 8.000000000000000000
+        Margins.Top = 8.000000000000000000
+        Margins.Right = 8.000000000000000000
+        Margins.Bottom = 8.000000000000000000
+        Size.Width = 335.000000000000000000
+        Size.Height = 81.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00060000000000000004000000}
+        TextSettings.FontColor = claRed
+        Text = 
+          'Existem boletos em aberto. Por favor, para continuar, toque nos ' +
+          'boletos que j'#225' recebeu e confirme a baixa.'
+        TabOrder = 0
+      end
+    end
     object layoutTitle: TLayout
       Align = Top
       Size.Width = 351.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 1
+      TabOrder = 3
       object rectangleTitle: TRectangle
         Align = Client
         Fill.Color = xFF03A9F4
@@ -58,28 +101,27 @@ object view_BaixaBoletos: Tview_BaixaBoletos
               PNG = {
                 89504E470D0A1A0A0000000D49484452000000300000003008060000005702F9
                 87000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                028B494441546843ED96CFAB125114C7BD6391A4EF9110B50905112909836760
-                8B56F627541BFF0CC1852B712122AEDCB40CDAB433087AD183B77963D05270A1
-                E00F5CAA4F7998BF4DD1CEB9334F74CA98D7CC3CEED4FDC041EF3D87B9E79CFB
-                BD73C7C2E170381C0EE71F85743A9D27DD6E3788FFA529F3402A954A70B95C9E
-                835D349BCD673827B9D8E732F9CE5A66B1585C88A218409F14C22EA45EAF0721
-                E1B69C3BA5D1689C8642A1FBE897C2D8043BFF1492DF741EA956AB673E9FEF21
-                F86F630C8D6490CBE4CFE5BC29907CC1ED763F02BF0363682483FCB6F3B55A4D
-                3453F23B9A87E4CFBC5EAF1FFCE6EB3CCA662B79814632C83ECD7F75B95CA649
-                5EA9F9C256F24CCBE697F73CCAC6E3F13C06FF219815E3349A6AAE124C4AA552
-                D0EFF71F5BADD67BF29C056EDC55ABD53AB6DBED7D9BCDF6037C6BD9F5570882
-                B01E8FC7DF9C4EE73B18AEA459ED9072B97C84DF3672D30DA5D7EBBD87356F49
-                4BFF19B5074D28168B07B3D94CD543B5028D4219AACA4DAD84F06187C964F245
-                341A7DEB703850EB14941048EB147E673044F95C49C34A0821ABD168540887C3
-                6F6088CFD48D1B60771389C4ABC160D097779BD26EB7C540208087D80DE6D268
-                0FC09C60B89EEED02260275E0F87C39D22E0E09D4422115CF8A61CA7C50CBD43
-                70015A046CF577397FCA7C3EFF128BC50EC0AF4946D7C176113B3B01457CCEE5
-                729B33C2329B2294729A4C269F32990CEE04F3ECDD092C020E3C7E5630CFDE33
-                61D622943BF1D1744528EF89E974FA219BCDDAA530B6A145E06507077B2327B8
-                23FAF97CFE087CCCBF5E919D22405283743AFD12E6F0D5AA7B014675048BB893
-                4AA59EC3E73189C7E30518F7C196E8D41323B7148BB081E11A5330DD93BF0E30
-                79239BC4E170389CFF1A8BE52773058A81ABA293C40000000049454E44AE4260
-                82}
+                0289494441546843ED96CFAB125114C7BD63F9247D8F84476D4241442BC2E019
+                D8A295FD09D5C63F4370E14A5C88882B372D8336ED0C825E14BCCD1B8396820B
+                057FE056531EE6AFD110ED9C3B83E8F48C79CDCCE34EDD0F1C98B9E730F79C7B
+                BEF7DEB171381C0E87C3F94721BD5EEF71BFDF8FE0B33C641D48BD5E8FCCE7F3
+                EF60179D4EE7298EC92EF6A1C92F168BDE5A4192A40B5114C3E89343D885B45A
+                2D4CBEABE44E69B7DB67D168F42EFAE53036C1957FB2BDF248A3D1380F0683F7
+                C17F0B63682483D0E451F34ADE1448BEECF3F91E80DF8D313492412E5DF966B3
+                295A29F91DCD43F2E78140E021F8ADB7F2289BADE4051AC920FB34FFD5EBF55A
+                23F9CB567E2B79A665F3DB398FC9FBFDFE47E03F02B3639C4ED3CC558249B55A
+                8D8442A15387C3714719B3818C56F0BF73EA72B9864EA7F3A7DD6E5F2BAEBF42
+                1084F5743AFDE6F178DEC2EB4A1ED50FA9D56A276ACD9BC560307807731EC853
+                FF19AD1B4DA8542A87CBE552D347F502F3A00C35E5A65542F8B1A34C26F33C91
+                48BC71BBDDA8750A4A08BA730693CEE115E573250DAB2184AC26934939168BBD
+                8657FCA661DC003B4EA7D32F47A3D150E936A5DBED8AE1701837B10FCCABD3EE
+                8179C0703EC3A14540275E8DC7E39D2260E37D89C7E338F14D254E8F997A87E0
+                04B40868F50F257F0A1CAF9F93C9E421F875C9E83AD82E62A71350C4A762B1B8
+                D9232CB329422DA7D96CF6319FCF632798676F27B008D8F0F85BC13C7BF78455
+                8B5077E283E58A50DF139224BD2F140A2E398C6D681178D9C1C6DEC809EE8861
+                A9543A011FF3C72BB25304486A94CBE55EC0181EAD861760D68A6011B7B3D9EC
+                33F83D26A954AA0CEF43B0253A8DC4CC9662114E309C4302333CF9EB00933773
+                91381C0E87F35F63B3FD02FA048A15717483590000000049454E44AE426082}
               FileName = 
                 'C:\Users\TI\Desktop\Workspace\Projetos\Delphi\DeliveryControl\im' +
                 'ages\arrow_return\res\mipmap-mdpi\ic_launcher.png'
@@ -105,56 +147,6 @@ object view_BaixaBoletos: Tview_BaixaBoletos
           Text = 'Delivery Control'
           TabOrder = 0
         end
-      end
-    end
-    object listViewBoletos: TListView
-      ItemAppearanceClassName = 'TMultiDetailItemAppearance'
-      ItemEditAppearanceClassName = 'TMultiDetailDeleteAppearance'
-      HeaderAppearanceClassName = 'TListHeaderObjects'
-      FooterAppearanceClassName = 'TListHeaderObjects'
-      Align = Client
-      Margins.Left = 20.000000000000000000
-      Margins.Top = 20.000000000000000000
-      Margins.Right = 20.000000000000000000
-      Margins.Bottom = 20.000000000000000000
-      Size.Width = 311.000000000000000000
-      Size.Height = 371.000000000000000000
-      Size.PlatformDefault = False
-      TabOrder = 2
-      ItemAppearanceObjects.HeaderObjects.Text.Font.StyleExt = {00070000000000000004000000}
-      StyleLookup = 'listviewstyle'
-      OnItemClick = listViewBoletosItemClick
-    end
-    object rectangleSave: TRectangle
-      Align = Bottom
-      Cursor = crHandPoint
-      Fill.Color = xFF03A9F4
-      Margins.Left = 10.000000000000000000
-      Margins.Top = 10.000000000000000000
-      Margins.Right = 10.000000000000000000
-      Margins.Bottom = 10.000000000000000000
-      Position.X = 10.000000000000000000
-      Position.Y = 501.000000000000000000
-      Size.Width = 331.000000000000000000
-      Size.Height = 47.000000000000000000
-      Size.PlatformDefault = False
-      Stroke.Color = xFF03A9F4
-      XRadius = 5.000000000000000000
-      YRadius = 5.000000000000000000
-      OnMouseDown = rectangleSaveMouseDown
-      OnMouseUp = rectangleSaveMouseUp
-      object labelSave: TLabel
-        Align = Client
-        StyledSettings = [Family]
-        Size.Width = 331.000000000000000000
-        Size.Height = 47.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Size = 16.000000000000000000
-        TextSettings.Font.StyleExt = {00060000000000000004000000}
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        Text = 'Salvar'
-        TabOrder = 0
       end
     end
   end

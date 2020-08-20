@@ -19,18 +19,16 @@ type
     actionExit: TAction;
     labelBoletos: TLabel;
     listViewBoletos: TListView;
-    rectangleSave: TRectangle;
-    labelSave: TLabel;
     labelTitle: TLabel;
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkListControlToField1: TLinkListControlToField;
     actionBaixar: TAction;
+    layoutAviso: TLayout;
+    labelAviso: TLabel;
     procedure FormActivate(Sender: TObject);
     procedure actionExitExecute(Sender: TObject);
     procedure imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-    procedure rectangleSaveMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-    procedure rectangleSaveMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure actionBaixarExecute(Sender: TObject);
     procedure listViewBoletosItemClick(const Sender: TObject; const AItem: TListViewItem);
   private
@@ -73,8 +71,7 @@ begin
         end
         else
         begin
-          ShowMessage('Boleto baixado com sucesso! Volte para a tela anterior e realize seu Login.');
-          Close;
+          ShowMessage('Boleto baixado com sucesso!');
         end;
       end;
     end;
@@ -91,6 +88,7 @@ var
   FBoletos: TRESTBoletosController;
 begin
   try
+    FBoletos := TRESTBoletosController.Create;
     Result := FBoletos.BaixaBoleto(sLinha, sUsername);
   finally
     FBoletos.Free;
@@ -125,23 +123,14 @@ begin
     Inc(i ,1);
     sData := Copy(DM_Main.memTableBoletosdat_credito.AsString,9,2) + '/' + Copy(DM_Main.memTableBoletosdat_credito.AsString,6,2) +
              Copy(DM_Main.memTableBoletosdat_credito.AsString,1,4);
+
     DM_Main.memTableBoletos.Next;
   end;
 end;
 
 procedure Tview_BaixaBoletos.listViewBoletosItemClick(const Sender: TObject; const AItem: TListViewItem);
 begin
-  sLinhaGeral := DM_Main.memTableBoletosnum_linha_boleto.Text;
-end;
-
-procedure Tview_BaixaBoletos.rectangleSaveMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-begin
-  TRectangle(Sender).Opacity := 0.7;
-end;
-
-procedure Tview_BaixaBoletos.rectangleSaveMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-begin
-  TRectangle(Sender).Opacity := 1;
+  sLinhaGeral := DM_Main.memTableBoletosnum_linha_boleto.AsString;
   actionBaixarExecute(Sender);
 end;
 
