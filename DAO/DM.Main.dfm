@@ -5,7 +5,6 @@ object DM_Main: TDM_Main
   object RESTClient: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
     AcceptCharset = 'utf-8, *;q=0.8'
-    BaseURL = 'http://localhost/API/dc/dc_lancamentos_entregador.php'
     ContentType = 'application/x-www-form-urlencoded'
     Params = <
       item

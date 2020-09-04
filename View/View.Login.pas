@@ -39,7 +39,7 @@ type
     procedure actionCadastroExecute(Sender: TObject);
     procedure rectangleAcceptMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure rectangleAcceptMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-    procedure FormShow(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
     function ValidaLogin(sUsername: String; sPassword: String): Boolean;
@@ -122,9 +122,9 @@ begin
   end;
 end;
 
-procedure Tview_Login.FormShow(Sender: TObject);
+procedure Tview_Login.FormActivate(Sender: TObject);
 begin
-  labelVersao.Text := 'Versão 1.0';
+  labelVersao.Text := 'Versão 1.9.0';
 end;
 
 procedure Tview_Login.imageViewClick(Sender: TObject);

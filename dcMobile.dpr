@@ -35,7 +35,7 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TDM_Main, DM_Main);
   Application.CreateForm(Tview_Login, view_Login);
+  Application.CreateForm(TDM_Main, DM_Main);
   Application.Run;
 end.
