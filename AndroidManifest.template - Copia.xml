@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- BEGIN_INCLUDE(manifest) -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.novorioexpress.dcMobile"
-        android:versionCode="10"
-        android:versionName="1.10.0"
-        android:installLocation="auto">
+        package="%package%"
+        android:versionCode="%versionCode%"
+        android:versionName="%versionName%"
+        android:installLocation="%installLocation%">
 
-    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-sdk android:minSdkVersion="%minSdkVersion%" android:targetSdkVersion="%targetSdkVersion%" />
+    <%uses-permission%>
     <uses-feature android:glEsVersion="0x00020000" android:required="True"/>
-    <application android:persistent="False" 
-        android:restoreAnyVersion="False" 
-        android:label="dcMobile" 
-        android:debuggable="False" 
-        android:largeHeap="False"
-        android:icon="@drawable/ic_launcher"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true"
+    <application android:persistent="%persistent%" 
+        android:restoreAnyVersion="%restoreAnyVersion%" 
+        android:label="%label%" 
+        android:debuggable="%debuggable%" 
+        android:largeHeap="%largeHeap%"
+        android:icon="%icon%"
+        android:theme="%theme%"
+        android:hardwareAccelerated="%hardwareAccelerated%"
         android:resizeableActivity="false">
 
-        
-        
-        
-        
+        <%provider%>
+        <%application-meta-data%>
+        <%uses-libraries%>
+        <%services%>
         <!-- Our activity is a subclass of the built-in NativeActivity framework class.
              This will take care of integrating with our NDK code. -->
         <activity android:name="com.embarcadero.firemonkey.FMXNativeActivity"
-                android:label="dcMobile"
+                android:label="%activityLabel%"
                 android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
                 android:launchMode="singleTask">
             <!-- Tell NativeActivity the name of our .so -->
             <meta-data android:name="android.app.lib_name"
-                android:value="dcMobile" />
+                android:value="%libNameValue%" />
             <intent-filter>  
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter> 
         </activity>
-        
-        <receiver android:name="com.embarcadero.rtl.notifications.NotificationAlarm" />
-
+        <%activity%>
+        <%receivers%>
     </application>
 </manifest>
 <!-- END_INCLUDE(manifest) -->
