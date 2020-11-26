@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects, FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls,
   FMX.Edit, FMX.Ani, System.ImageList, FMX.ImgList, System.Actions, FMX.ActnList,
-  Common.Notificacao, Controller.RESTLogin, Controller.RESTBoletos, Controller.RESTCadastro;
+  Common.Notificacao, Controller.RESTLogin, Controller.RESTBoletos, Controller.RESTCadastro,
+  Androidapi.Helpers, Androidapi.JNI.JavaTypes, Androidapi.JNI.GraphicsContentViewText ;
 
 type
   Tview_Login = class(TForm)
@@ -46,6 +47,7 @@ type
     procedure OpenFormMain;
     procedure OpenFormCadastro;
     procedure OpenListaBoletos;
+    procedure MostraVersao;
     function BoletosAbertos(sentregador: string): Boolean;
     function CPFValido(scpf: String): boolean;
   public
@@ -124,7 +126,7 @@ end;
 
 procedure Tview_Login.FormActivate(Sender: TObject);
 begin
-  labelVersao.Text := 'Versão 1.9.0';
+  MostraVersao;
 end;
 
 procedure Tview_Login.imageViewClick(Sender: TObject);
@@ -137,6 +139,16 @@ begin
   begin
     editPassword.Password := True;
   end;
+end;
+
+procedure Tview_Login.MostraVersao;
+var
+  PkgInfo: JPackageInfo;
+  sVersao : String;
+begin
+  PkgInfo := SharedActivity.getPackageManager.getPackageInfo(SharedActivity.getPackageName,0);
+  sVersao := JStringToString(PkgInfo.versionName);
+  labelVersao.Text := 'Versão ' + sVersao;
 end;
 
 procedure Tview_Login.OpenFormCadastro;

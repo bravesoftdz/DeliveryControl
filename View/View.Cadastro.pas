@@ -124,6 +124,11 @@ begin
       ShowMessage('CPF não está vinculado a nenhum entregador! Cadastro cancelado.');
       Exit;
     end;
+    if Common.Params.paramEntregadorAtivo <> 1 then
+    begin
+      ShowMessage('Entregador não está liberado para cadastro! Cadastro cancelado.');
+      Exit;
+    end;
     Result := True;
   finally
     FCadastro.Free;

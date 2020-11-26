@@ -60,10 +60,12 @@ var
   jvCodigo, jvNome, jvAtivo, jvCadastro: TJSONValue;
   ja: TJSONArray;
   i: integer;
+  sCPFModificado: String;
 begin
   Result := False;
+  sCPFModificado := Trim(FloatToStr(StrToFloatDef(sCPF,0)));
   StartRestRequest('/dc_cpf_entregador.php');
-  DM_Main.RESTRequest.AddParameter('cpf', sCpf, pkGETorPOST);
+  DM_Main.RESTRequest.AddParameter('cpf', sCpfModificado, pkGETorPOST);
   DM_Main.RESTResponseDataSetAdapter.Active := False;
   DM_Main.RESTRequest.Execute;
   if DM_Main.RESTResponse.JSONText = 'false' then
