@@ -2,7 +2,7 @@ unit Model.RESTEentregas;
 
 interface
 
-uses Web.HTTPApp, System.JSON, REST.Types, System.SysUtils, System.Classes;
+uses Web.HTTPApp, System.JSON, REST.Types, System.SysUtils, System.Classes, FMX.Dialogs;
 
 type
   RESTEntregas = class
@@ -42,6 +42,7 @@ function RESTEntregas.SearchEntregas(sentregador, sdataini, sdatafim: String): B
 begin
   Result  := False;
   StartRestRequest;
+  ShowMessage(sentregador);
   DM_Main.RESTResponseDataSetAdapter.Dataset := DM_Main.memTableExtrato;
   DM_Main.RESTRequest.AddParameter('entregador', sentregador, pkGETorPOST);
   DM_Main.RESTRequest.AddParameter('dataini', sdataini, pkGETorPOST);

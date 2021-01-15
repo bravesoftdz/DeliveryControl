@@ -14,6 +14,7 @@ type
     function SalvaCadastro(sCpfCnpj, sUserName, sName, sPassword, sEmail: String): boolean;
     function UsuarioExiste(sCPF: String): Boolean;
     function CPFValido(sCPF: string): boolean;
+    function RetornaEntregadores(iCadastro: integer): Boolean;
   end;
 
 implementation
@@ -36,6 +37,11 @@ begin
   inherited;
 end;
 
+
+function TRESTCadastroController.RetornaEntregadores(iCadastro: integer): Boolean;
+begin
+  Result := FCadastro.RetornaEntregadores(iCadastro);
+end;
 
 function TRESTCadastroController.SalvaCadastro(sCpfCnpj, sUserName, sName, sPassword, sEmail: String): boolean;
 begin

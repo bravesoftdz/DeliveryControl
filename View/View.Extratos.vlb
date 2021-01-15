@@ -7,9 +7,6 @@ Coordinates=362,122,57,51
 [layoutFiltro]
 Coordinates=383,190,70,33
 
-[labelQuinzena]
-Coordinates=99,122,84,51
-
 [actionListExtratos]
 Coordinates=420,111,104,33
 
@@ -20,7 +17,7 @@ Coordinates=97,190,79,33
 Coordinates=206,122,57,51
 
 []
-Coordinates=300,293,105,33
+Coordinates=99,122,84,51
 Visible=True
 
 [stringGridExtrato]

@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects, FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls,
   FMX.Edit, FMX.Ani, System.ImageList, FMX.ImgList, System.Actions, FMX.ActnList,
   Common.Notificacao, Controller.RESTLogin, Controller.RESTBoletos, Controller.RESTCadastro,
-  Androidapi.Helpers, Androidapi.JNI.JavaTypes, Androidapi.JNI.GraphicsContentViewText ;
+  Androidapi.Helpers, Androidapi.JNI.JavaTypes, Androidapi.JNI.GraphicsContentViewText;
 
 type
   Tview_Login = class(TForm)
@@ -116,6 +116,11 @@ begin
     if not FCadastro.CPFValido(sCPF) then
     begin
       ShowMessage('CPF não está vinculado a nenhum entregador! Cadastro cancelado.');
+      Exit;
+    end;
+    if not FCadastro.RetornaEntregadores(Common.Params.paramCodigoCadastro) then
+    begin
+      ShowMessage('Nenhum código de entregador foi encontrado! Cadastro cancelado.');
       Exit;
     end;
     Result := True;

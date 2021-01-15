@@ -261,6 +261,10 @@ object DM_Main: TDM_Main
     StoreDefs = True
     Left = 160
     Top = 240
+    object memTableEntregascod_cliente: TStringField
+      FieldName = 'cod_cliente'
+      Size = 255
+    end
     object memTableEntregascod_entregador: TWideStringField
       FieldName = 'cod_entregador'
       Size = 255
@@ -275,6 +279,10 @@ object DM_Main: TDM_Main
     end
     object memTableEntregasnum_extrato: TWideStringField
       FieldName = 'num_extrato'
+      Size = 255
+    end
+    object memTableEntregasdes_tipo: TStringField
+      FieldName = 'des_tipo'
       Size = 255
     end
   end

@@ -66,6 +66,8 @@ type
     memTableLancamentosdat_lancamento: TWideStringField;
     memTableLancamentosdes_tipo: TWideStringField;
     memTableLancamentosval_lancamento: TWideStringField;
+    memTableEntregascod_cliente: TStringField;
+    memTableEntregasdes_tipo: TStringField;
   private
     { Private declarations }
   public

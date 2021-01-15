@@ -13,6 +13,7 @@ type
     function SalvaCadastro(sCpfCnpj, sUserName, sName, sPassword, sEmail: String): boolean;
     function UsuarioExiste(sCPF: String): Boolean;
     function CPFValido(sCPF: string): boolean;
+    function RetornaEntregadores(iCadastro: integer): Boolean;
   end;
 const
   API = '/api/dc';
@@ -84,9 +85,51 @@ begin
     Common.Params.paramCodigoCadastro := StrToIntDef(jvCadastro.Value, 0);
     Common.Params.paramNameUser := jvnome.Value;
     Common.Params.paramEntregadorAtivo := StrToIntDef(jvAtivo.Value, 0);
-
   end
   else
+  begin
+    Exit;
+  end;
+  Result := True;
+end;
+
+function TRESTCadastro.RetornaEntregadores(iCadastro: integer): Boolean;
+var
+  jsonObj, jo: TJSONObject;
+  jvCodigo: TJSONValue;
+  sCodigos: String;
+  ja: TJSONArray;
+  i: integer;
+begin
+  Result := false;
+  StartRestRequest('/dc_lista_entregadores.php');
+  DM_Main.RESTRequest.AddParameter('cadastro', iCadastro.ToString, pkGETorPOST);
+  DM_Main.RESTResponseDataSetAdapter.Active := False;
+  DM_Main.RESTRequest.Execute;
+  if DM_Main.RESTResponse.JSONText = 'false' then
+  begin
+    Exit;
+  end;
+  if DM_Main.RESTResponse.JSONValue is TJSONArray then
+  begin
+    ja := DM_Main.RESTResponse.JSONValue as TJSONArray;
+
+    for i := 0 to ja.Size - 1 do
+    begin
+      jsonObj := (ja.Get(0) as TJSONObject);
+      jvCodigo := jsonObj.Get(0).JsonValue;
+      if not Common.Params.paramCodigosEntregadores.IsEmpty then
+      begin
+        Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + ',';
+      end;
+      Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + jvCodigo.Value;
+    end;
+  end
+  else
+  begin
+    Exit;
+  end;
+  if Common.Params.paramCodigosEntregadores.IsEmpty then
   begin
     Exit;
   end;
