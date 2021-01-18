@@ -118,11 +118,14 @@ begin
     begin
       jsonObj := (ja.Get(0) as TJSONObject);
       jvCodigo := jsonObj.Get(0).JsonValue;
-      if not Common.Params.paramCodigosEntregadores.IsEmpty then
+      if Pos(jvCodigo.Value, Common.Params.paramCodigosEntregadores) = 0 then
       begin
-        Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + ',';
+        if not Common.Params.paramCodigosEntregadores.IsEmpty then
+        begin
+          Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + ',';
+        end;
+        Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + jvCodigo.Value;
       end;
-      Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + jvCodigo.Value;
     end;
   end
   else

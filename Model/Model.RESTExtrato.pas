@@ -10,7 +10,7 @@ type
     procedure StartRestClient(sFile: String);
     procedure StartRestRequest;
   public
-    function SearchExtrato(sEntregador, sAno, sMes, sQuinzena: String): Boolean;
+    function SearchExtrato(sEntregador, sdataini, sdatafim: String): Boolean;
   end;
 const
   API = '/api/dc';
@@ -38,15 +38,14 @@ begin
   DM_Main.RESTRequest.Method := rmPOST;
 end;
 
-function TRESTExtrato.SearchExtrato(sEntregador, sAno, sMes, sQuinzena: String): Boolean;
+function TRESTExtrato.SearchExtrato(sentregador, sdataini, sdatafim: String): Boolean;
 begin
   Result  := False;
   StartRestRequest;
   DM_Main.RESTResponseDataSetAdapter.Dataset := DM_Main.memTableExtrato;
   DM_Main.RESTRequest.AddParameter('entregador', sEntregador, pkGETorPOST);
-  DM_Main.RESTRequest.AddParameter('ano', sAno, pkGETorPOST);
-  DM_Main.RESTRequest.AddParameter('mes', sMes, pkGETorPOST);
-  DM_Main.RESTRequest.AddParameter('quinzena', sQuinzena, pkGETorPOST);
+  DM_Main.RESTRequest.AddParameter('dataini', sdataini, pkGETorPOST);
+  DM_Main.RESTRequest.AddParameter('datafim', sdatafim, pkGETorPOST);
   DM_Main.RESTResponseDataSetAdapter.Dataset := DM_Main.memTableExtrato;
   DM_Main.RESTResponseDataSetAdapter.Active := True;
   DM_Main.RESTRequest.Execute;

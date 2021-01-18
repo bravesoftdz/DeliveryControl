@@ -42,7 +42,6 @@ function RESTEntregas.SearchEntregas(sentregador, sdataini, sdatafim: String): B
 begin
   Result  := False;
   StartRestRequest;
-  ShowMessage(sentregador);
   DM_Main.RESTResponseDataSetAdapter.Dataset := DM_Main.memTableExtrato;
   DM_Main.RESTRequest.AddParameter('entregador', sentregador, pkGETorPOST);
   DM_Main.RESTRequest.AddParameter('dataini', sdataini, pkGETorPOST);
