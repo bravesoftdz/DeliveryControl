@@ -3,7 +3,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.novorioexpress.dcMobile"
         android:versionCode="12"
-        android:versionName="1.12.1"
+        android:versionName="1.12.2"
         android:installLocation="auto">
 
     <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29" />

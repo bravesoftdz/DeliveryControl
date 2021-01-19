@@ -116,16 +116,13 @@ begin
 
     for i := 0 to ja.Size - 1 do
     begin
-      jsonObj := (ja.Get(0) as TJSONObject);
+      jsonObj := (ja.Get(i) as TJSONObject);
       jvCodigo := jsonObj.Get(0).JsonValue;
-      if Pos(jvCodigo.Value, Common.Params.paramCodigosEntregadores) = 0 then
+      if not Common.Params.paramCodigosEntregadores.IsEmpty then
       begin
-        if not Common.Params.paramCodigosEntregadores.IsEmpty then
-        begin
-          Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + ',';
-        end;
-        Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + jvCodigo.Value;
+        Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + ',';
       end;
+      Common.Params.paramCodigosEntregadores := Common.Params.paramCodigosEntregadores + jvCodigo.Value;
     end;
   end
   else

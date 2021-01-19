@@ -5,8 +5,8 @@
         <FrameworkType>FMX</FrameworkType>
         <MainSource>dcMobile.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Config Condition="'$(Config)'==''">Release</Config>
+        <Platform Condition="'$(Platform)'==''">Android</Platform>
         <TargetedPlatforms>37983</TargetedPlatforms>
         <AppType>Application</AppType>
         <PlatformSDK Condition="'$(PlatformSDK)'=='' And '$(Platform)'=='Android64'">AndroidSDK25.2.5_64bit.sdk</PlatformSDK>
@@ -443,10 +443,10 @@
         <PF_KeyStore>keystore\dcMobile.keystore</PF_KeyStore>
         <PF_KeyStorePass>852E47C55FC70789A359716CD16AE34E81C60513A04997C197A00FAA8E6C3C8BDB0CA39AE3191C62C1BB5726FAB3C317BAE9365104262291163B45CFE5942290C916F30AD544FACCD3F23B0572298594F7D8331F</PF_KeyStorePass>
         <PF_AliasKey>dcmobile</PF_AliasKey>
-        <PF_AliasKeyPass>852E47C55FC70789CF51E527A4587BACE4450519A05A97D897C80FA28E363C94DB04A390E34B1C31C1B15774FAD1C339BABA3609043F22FC1657458CE5A722CFC949F31FD555FAFEBFE4AF0D07551D589201331F</PF_AliasKeyPass>
+        <PF_AliasKeyPass>852E47C55FC70789CF51E527A458E36281C30502A02B979B97EE0FB48E3E3C9EDB56A384E34A1C6BC1AE577CFA9CC360BAE1367E044B22801678459DE5E522CEC91BF36FD558FAD0BFAFAF1107028594F7D8331F</PF_AliasKeyPass>
         <VerInfo_Build>12</VerInfo_Build>
         <Android_NotificationAccentColor>#000000</Android_NotificationAccentColor>
-        <VerInfo_Keys>package=com.novorioexpress.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=12;versionName=1.12.1;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <VerInfo_Keys>package=com.novorioexpress.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=12;versionName=1.12.2;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
         <Android_LauncherIcon36>images\logo_36_36.png</Android_LauncherIcon36>
         <Android_LauncherIcon48>images\logo_48_48.png</Android_LauncherIcon48>
         <Android_LauncherIcon72>images\logo_72_72.png</Android_LauncherIcon72>
@@ -462,8 +462,8 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Android64)'!=''">
         <BT_BuildType>AppStore</BT_BuildType>
-        <VerInfo_Build>12</VerInfo_Build>
-        <VerInfo_Keys>package=com.novorioexpress.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=12;versionName=1.12.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <VerInfo_Build>13</VerInfo_Build>
+        <VerInfo_Keys>package=com.novorioexpress.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=13;versionName=1.13.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
         <Android_LauncherIcon36>images\logo_36_36.png</Android_LauncherIcon36>
         <Android_LauncherIcon48>images\logo_48_48.png</Android_LauncherIcon48>
         <Android_LauncherIcon72>images\logo_72_72.png</Android_LauncherIcon72>
@@ -475,9 +475,9 @@
         <Android_SplashImage960>images\splash_logo_960_720.png</Android_SplashImage960>
         <Android_SplashTileMode>disabled</Android_SplashTileMode>
         <PF_KeyStore>keystore\dcMobile.keystore</PF_KeyStore>
-        <PF_KeyStorePass>54E50DFE644355A9A301713BD13FE36081DA0549A057979297EE0FB48E3E3CD9DB5DA38CE3371C4DC1B0577DFADEC37ABAF93641045722CE16654589E5A6228C18C3B939EED9A8C2D3F23B0572298594F7D8331F</PF_KeyStorePass>
+        <PF_KeyStorePass>852E47C55FC70789CF51E527A4587BACE4450519A05A97D897C80FA28E363C94DB04A390E34B1C31C1B15774FAD1C339BABA3609043F22FC1657458CE5A722CFC949F31FD555FAFEBFE4AF0D07551D589201331F</PF_KeyStorePass>
         <PF_AliasKey>dcmobile</PF_AliasKey>
-        <PF_AliasKeyPass>852E47C55FC70789CF51E527A458E36281C30502A02B979B97EE0FB48E3E3C9EDB56A384E34A1C6BC1AE577CFA9CC360BAE1367E044B22801678459DE5E522CEC91BF36FD558FAD0BFAFAF1107028594F7D8331F</PF_AliasKeyPass>
+        <PF_AliasKeyPass>852E47C55FC75585A304712AD15DE33A81940557A005978797B40FAA8E6D3CD0DB48A3D6E3181C3AC1B85752FAB3C36BBABA361304262290166845ECE5BA2290C95DF35DD544A8C2D3F23B0572298594F7D8331F</PF_AliasKeyPass>
         <AUP_CALL_PHONE>false</AUP_CALL_PHONE>
         <AUP_CAMERA>false</AUP_CAMERA>
         <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
@@ -575,9 +575,9 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="images\logo_144_144.png" Configuration="Release" Class="Android_LauncherIcon144">
-                    <Platform Name="Android64">
-                        <RemoteName>ic_launcher.png</RemoteName>
+                <DeployFile LocalName="images\splash_logo_960_720.png" Configuration="Debug" Class="Android_SplashImage960">
+                    <Platform Name="Android">
+                        <RemoteName>splash_image.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -664,13 +664,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="images\logo_48_48.png" Configuration="Debug" Class="Android_LauncherIcon48">
+                <DeployFile LocalName="Android\Debug\splash_image_def.xml" Configuration="Debug" Class="AndroidSplashImageDef">
                     <Platform Name="Android">
-                        <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_36x36.png" Configuration="Release" Class="Android_NotificationIcon36">
                     <Platform Name="Android64">
                         <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -681,8 +680,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android\Debug\splash_image_def.xml" Configuration="Debug" Class="AndroidSplashImageDef">
+                <DeployFile LocalName="images\logo_48_48.png" Configuration="Debug" Class="Android_LauncherIcon48">
                     <Platform Name="Android">
+                        <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -698,7 +698,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_36x36.png" Configuration="Release" Class="Android_NotificationIcon36">
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
                     <Platform Name="Android64">
                         <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -1105,14 +1105,14 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android64\Debug\strings.xml" Configuration="Debug" Class="Android_Strings">
+                <DeployFile LocalName="images\logo_144_144.png" Configuration="Release" Class="Android_LauncherIcon144">
                     <Platform Name="Android64">
+                        <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="images\splash_logo_960_720.png" Configuration="Debug" Class="Android_SplashImage960">
-                    <Platform Name="Android">
-                        <RemoteName>splash_image.png</RemoteName>
+                <DeployFile LocalName="Android64\Debug\strings.xml" Configuration="Debug" Class="Android_Strings">
+                    <Platform Name="Android64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

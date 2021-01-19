@@ -411,13 +411,13 @@ begin
         dVerba := StrToFloatDef(StringReplace(DM_Main.memTableEntregasval_verba.AsString, '.', ',', [rfReplaceAll]),0);
         iEntregas := StrToIntDef(DM_Main.memTableEntregasqtd_entregas.AsString, 0);
         sQuantidade := FormatFloat('#,##0;(#,##0)', iEntregas);
-        if DM_Main.memTableEntregasdes_tipo.AsString = '' then
+        if DM_Main.memTableEntregasdes_tipo.AsString = 'Loja' then
         begin
-          sDescricao := 'Entrega ' + sCliente;
+          sDescricao := 'Entregas Lojas ' + sCliente;
         end
         else
         begin
-          sDescricao := DM_Main.memTableEntregasdes_tipo.AsString + ' ' + sCliente;
+          sDescricao := 'Entregas ' + sCliente;
         end;
         dProducao := dVerba * iEntregas;
         stringGridExtrato.Cells[0,i] := sQuantidade;
