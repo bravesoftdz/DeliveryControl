@@ -29,7 +29,8 @@ uses
   Model.RESTEentregas in 'Model\Model.RESTEentregas.pas',
   Controller.RESTEntregas in 'Controller\Controller.RESTEntregas.pas',
   Model.RESTExtravios in 'Model\Model.RESTExtravios.pas',
-  Controller.RESTExtravios in 'Controller\Controller.RESTExtravios.pas';
+  Controller.RESTExtravios in 'Controller\Controller.RESTExtravios.pas',
+  Common.Utils in 'Common\Common.Utils.pas';
 
 {$R *.res}
 
