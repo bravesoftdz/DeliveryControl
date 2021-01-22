@@ -2,7 +2,7 @@ unit Model.RESTCadastro;
 
 interface
 
-uses Web.HTTPApp, System.JSON, REST.Types, System.SysUtils, System.Classes;
+uses Web.HTTPApp, System.JSON, REST.Types, System.SysUtils, System.Classes, Common.Utils;
 
 type
   TRESTCadastro = class
@@ -55,7 +55,7 @@ begin
   Result := True;
 end;
 
-function TRESTCadastro.CPFValido(sCPF: string): boolean;
+{function TRESTCadastro.CPFValido(sCPF: string): boolean;
 var
   jsonObj, jo: TJSONObject;
   jvCodigo, jvNome, jvAtivo, jvCadastro: TJSONValue;
@@ -85,6 +85,40 @@ begin
     Common.Params.paramCodigoCadastro := StrToIntDef(jvCadastro.Value, 0);
     Common.Params.paramNameUser := jvnome.Value;
     Common.Params.paramEntregadorAtivo := StrToIntDef(jvAtivo.Value, 0);
+  end
+  else
+  begin
+    Exit;
+  end;
+  Result := True;
+end;}
+
+function TRESTCadastro.CPFValido(sCPF: string): boolean;
+var
+  jsonObj, jo: TJSONObject;
+  jvNome, jvCadastro: TJSONValue;
+  ja: TJSONArray;
+  i: integer;
+  sCPFModificado: String;
+begin
+  Result := False;
+  sCPFModificado := Common.Utils.TUtils.FormataCPF(Trim(sCPF));
+  StartRestRequest('/dc_cpf_cadastro.php');
+  DM_Main.RESTRequest.AddParameter('cpf', sCpfModificado, pkGETorPOST);
+  DM_Main.RESTResponseDataSetAdapter.Active := False;
+  DM_Main.RESTRequest.Execute;
+  if DM_Main.RESTResponse.JSONText = 'false' then
+  begin
+    Exit;
+  end;
+  if DM_Main.RESTResponse.JSONValue is TJSONArray then
+  begin
+    ja := DM_Main.RESTResponse.JSONValue as TJSONArray;
+    jsonObj := (ja.Get(0) as TJSONObject);
+    jvNome := jsonObj.Get(1).JsonValue;
+    jvCadastro := jsonObj.Get(0).JsonValue;
+    Common.Params.paramCodigoCadastro := StrToIntDef(jvCadastro.Value, 0);
+    Common.Params.paramNameUser := jvnome.Value;
   end
   else
   begin

@@ -28,8 +28,8 @@ type
     class function LeIni(sFile: String; sSecao: String; sChave: String): String;
     class function GravaIni(sFile: String; sSecao: String; sChave: String; sValor: String): Boolean;
     class function CriarIni(sFile: string): Boolean;
-    class function FormataCPF(const CPF: String): String;
-    class function FormataCNPJ(const CNPJ: String): String;
+    class function FormataCPF(CPF: String): String;
+    class function FormataCNPJ(CNPJ: String): String;
     class function NumeroDeLinhasTXT(lcPath: String): Integer;
     class function ENumero(sValor: String): Boolean;
     class function DataOk(Dt: String): Boolean;
@@ -349,7 +349,7 @@ begin
 end;
 
 // Esta funcao informa Cpf neste formato: 999.999.999-99
-class function TUtils.FormataCPF(const CPF: String): String;
+class function TUtils.FormataCPF(CPF: String): String;
 {var
   i: Integer;
 begin
@@ -373,7 +373,7 @@ begin
 end;
 
 // Esta funcao informa CNPJ neste formato: 99.999.999/9999-99
-class function TUtils.FormataCNPJ(const CNPJ: String): String;
+class function TUtils.FormataCNPJ(CNPJ: String): String;
 {var
   i: Integer;
 begin
