@@ -29,7 +29,9 @@ type
     class function GravaIni(sFile: String; sSecao: String; sChave: String; sValor: String): Boolean;
     class function CriarIni(sFile: string): Boolean;
     class function FormataCPF(CPF: String): String;
+    class function DesFormatCPF(CPF: String): String;
     class function FormataCNPJ(CNPJ: String): String;
+    class function DesFormataCNPJ(CNPJ: String): String;
     class function NumeroDeLinhasTXT(lcPath: String): Integer;
     class function ENumero(sValor: String): Boolean;
     class function DataOk(Dt: String): Boolean;
@@ -568,5 +570,23 @@ begin
   end;
 end;
 
+
+class function TUtils.DesFormataCNPJ(CNPJ: String): String;
+begin
+  Delete(CNPJ,ansipos('.',CNPJ),1);  //Remove ponto .
+  Delete(CNPJ,ansipos('.',CNPJ),1);
+  Delete(CNPJ,ansipos('-',CNPJ),1); //Remove traço -
+  Delete(CNPJ,ansipos('/',CNPJ),1); //Remove barra /
+  Result := CNPJ;
+end;
+
+class function TUtils.DesFormatCPF(CPF: String): String;
+begin
+  Delete(CPF,ansipos('.',CPF),1);  //Remove ponto .
+  Delete(CPF,ansipos('.',CPF),1);
+  Delete(CPF,ansipos('-',CPF),1); //Remove traço -
+  Delete(CPF,ansipos('/',CPF),1); //Remove barra /
+  Result := CPF;
+end;
 
 end.

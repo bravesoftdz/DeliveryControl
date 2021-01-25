@@ -121,12 +121,12 @@ begin
     FCadastro := TRESTCadastroController.Create;
     if not FCadastro.CPFValido(sCPF) then
     begin
-      ShowMessage('CPF não está vinculado a nenhum entregador! Cadastro cancelado.');
+      ShowMessage('CPF não cadastrado!');
       Exit;
     end;
-    if Common.Params.paramEntregadorAtivo <> 1 then
+    if not FCadastro.RetornaEntregadores(Common.Params.paramCodigoCadastro) then
     begin
-      ShowMessage('Entregador não está liberado para cadastro! Cadastro cancelado.');
+      ShowMessage('Nenmhum entregador liberado para esse cadastro!');
       Exit;
     end;
     Result := True;
@@ -214,7 +214,7 @@ begin
     FCadastro := TRESTCadastroController.Create;
     if FCadastro.UsuarioExiste(sCPF) then
     begin
-      ShowMessage('CPF já está vinculado a um entregador! Cadastro cancelado.');
+      ShowMessage('CPF já está vinculado a um usuário! Cadastro cancelado.');
       Exit;
     end;
     Result := False;
