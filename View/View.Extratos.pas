@@ -208,20 +208,18 @@ end;
 
 procedure Tview_Extratos.MontaPeriodo(iAno, iMes, iDia: Integer);
 var
-  iDiaInicio, iDiaFinal, iMesData, iAnoData: Integer;
+  iDiaInicio, iDiaFinal, iMesInicio, iMesFinal, iAnoInicio, iAnoFinal, iMesData, iAnoData: Integer;
   sData: String;
   datData, datBase: TDate;
 begin
   iAnoData := iAno;
-  if iMes = 1 then
-  begin
-    iMes := 12;
-    Inc(iAnoData,-1);
-  end
-  else
-  begin
-    Inc(iMes,-1);
-  end;
+  datData := StrToDate(iDia.ToString +'/'+iMes.ToString+'/'+iAno.ToString);
+  datBase := IncDay(datData - 45);
+  iMesInicio := MonthOf(datBase);
+  iAnoInicio := YearOf(datBase);
+  datBase := IncDAy(datData - 30);
+  iMesFinal := MonthOf(datBase);
+  iAnoFinal := YearOf(datBase);
   if iDia = 10 then
   begin
     iDiaInicio := 26;
@@ -243,36 +241,10 @@ begin
     sData := '01/' + FormatFloat('00', iMes) + '/' + IntToStr(iAnoData);
     iDiaFinal := DaysInMonth(StrToDate(sData));
   end;
-  if iDiaInicio > iDiaFinal then
-  begin
-    if iMes = 1 then
-    begin
-      iMesData := 12;
-      sData := FormatFloat('00', iDiaInicio) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
-    end
-    else
-    begin
-      iMesData := iMes - 1;
-      sData := FormatFloat('00', iDiaInicio) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
-    end;
-    dtDataInicial := StrToDate(sData);
-    iMesData := iMes;
-    sData := FormatFloat('00', iDiaFinal) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
-    dtDataFinal := StrToDate(sData);
-  end
-  else
-  begin
-    iMesData := iMes;
-    sData := FormatFloat('00', iDiaInicio) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
-    dtDataInicial := StrToDate(sData);
-    iMesData := iMes;
-    if iDiaFinal = 31 then
-    begin
-      iDiaFinal := DaysInMonth(StrToDate(sData));
-    end;
-    sData := FormatFloat('00', iDiaFinal) + '/' + FormatFloat('00', iMesData) + '/' + FormatFloat('0000', iAnoData);
-    dtDataFinal := StrToDate(sData);
-  end;
+  sData := FormatFloat('00', iDiaInicio) + '/' + FormatFloat('00', iMesInicio) + '/' + FormatFloat('0000', iAnoInicio);
+  dtDataInicial := StrToDate(sData);
+  sData := FormatFloat('00', iDiaFinal) + '/' + FormatFloat('00', iMesFinal) + '/' + FormatFloat('0000', iAnoFinal);
+  dtDataFinal := StrToDate(sData);
 end;
 
 procedure Tview_Extratos.ProcessaExtravios(sEntregador, sExtratos: String);
