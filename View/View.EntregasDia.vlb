@@ -1,9 +1,6 @@
 ﻿[actionProcessar]
 Coordinates=88,218,94,33
 
-[labelMes]
-Coordinates=362,122,57,51
-
 [layoutFiltro]
 Coordinates=383,190,70,33
 
@@ -13,11 +10,8 @@ Coordinates=420,111,104,33
 [layoutPadrao]
 Coordinates=97,190,79,33
 
-[labelAno]
-Coordinates=206,122,57,51
-
 []
-Coordinates=99,122,84,51
+Coordinates=362,122,57,51
 Visible=True
 
 [stringGridExtrato]

@@ -475,9 +475,9 @@
         <Android_SplashImage960>images\splash_logo_960_720.png</Android_SplashImage960>
         <Android_SplashTileMode>disabled</Android_SplashTileMode>
         <PF_KeyStore>keystore\dcMobile.keystore</PF_KeyStore>
-        <PF_KeyStorePass>852E47C55FC75585A304712AD15DE33A81940557A005978797B40FAA8E6D3CD0DB48A3D6E3181C3AC1B85752FAB3C36BBABA361304262290166845ECE5BA2290C95DF35DD544A8C2D3F23B0572298594F7D8331F</PF_KeyStorePass>
+        <PF_KeyStorePass>852E47C55FC70789CF51E527A458E36281C30502A02B979B97EE0FB48E3E3C9EDB56A384E34A1C6BC1AE577CFA9CC360BAE1367E044B22801678459DE5E522CEC91BF36FD558FAD0BFAFAF1107028594F7D8331F</PF_KeyStorePass>
         <PF_AliasKey>dcmobile</PF_AliasKey>
-        <PF_AliasKeyPass>852E47C55FC70789CF51E527D171E33F81850535A05F97C997AA0FF88E783C8ADB56A385E3111C2FC1E2577DFAC4C363BA95367E043722D3163A459DE5E4229DC938F341D558FA9BBFF8AF1172298594F7D8331F</PF_AliasKeyPass>
+        <PF_AliasKeyPass>852E47C55FC70789CF51E527A4587BACE4450519A05A97D897C80FA28E363C94DB04A390E34B1C31C1B15774FAD1C339BABA3609043F22FC1657458CE5A722CFC949F31FD555FAFEBFE4AF0D07551D589201331F</PF_AliasKeyPass>
         <AUP_CALL_PHONE>false</AUP_CALL_PHONE>
         <AUP_CAMERA>false</AUP_CAMERA>
         <AUP_READ_PHONE_STATE>false</AUP_READ_PHONE_STATE>
@@ -513,8 +513,8 @@
         <DCCReference Include="Common\Common.Params.pas"/>
         <DCCReference Include="Model\Model.RESTCadastro.pas"/>
         <DCCReference Include="Controller\Controller.RESTCadastro.pas"/>
-        <DCCReference Include="View\View.Extratos.pas">
-            <Form>view_Extratos</Form>
+        <DCCReference Include="View\View.EntregasDia.pas">
+            <Form>view_EntregasDia</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="View\View.Main.pas">
@@ -548,6 +548,10 @@
         <DCCReference Include="Model\Model.RESTExtravios.pas"/>
         <DCCReference Include="Controller\Controller.RESTExtravios.pas"/>
         <DCCReference Include="Common\Common.Utils.pas"/>
+        <DCCReference Include="View\View.Extratos.pas">
+            <Form>view_Extratos</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -576,9 +580,9 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="images\logo_144_144.png" Configuration="Release" Class="Android_LauncherIcon144">
-                    <Platform Name="Android64">
-                        <RemoteName>ic_launcher.png</RemoteName>
+                <DeployFile LocalName="images\splash_logo_960_720.png" Configuration="Debug" Class="Android_SplashImage960">
+                    <Platform Name="Android">
+                        <RemoteName>splash_image.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -670,17 +674,6 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android\Debug\splash_image_def.xml" Configuration="Debug" Class="AndroidSplashImageDef">
-                    <Platform Name="Android">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
-                    <Platform Name="Android64">
-                        <RemoteName>ic_notification.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="images\logo_48_48.png" Configuration="Debug" Class="Android_LauncherIcon48">
                     <Platform Name="Android">
                         <RemoteName>ic_launcher.png</RemoteName>
@@ -690,6 +683,16 @@
                 <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_36x36.png" Configuration="Release" Class="Android_NotificationIcon36">
                     <Platform Name="Android64">
                         <RemoteName>ic_notification.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
+                    <Platform Name="Android64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Android\Debug\splash_image_def.xml" Configuration="Debug" Class="AndroidSplashImageDef">
+                    <Platform Name="Android">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -705,8 +708,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android64\Debug\styles.xml" Configuration="Debug" Class="AndroidSplashStyles">
+                <DeployFile LocalName="$(BDS)\bin\Artwork\Android\FM_NotificationIcon_24x24.png" Configuration="Debug" Class="Android_NotificationIcon24">
                     <Platform Name="Android64">
+                        <RemoteName>ic_notification.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -1099,14 +1103,14 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Android\Release\AndroidManifest.xml" Configuration="Release" Class="ProjectAndroidManifest">
-                    <Platform Name="Android">
+                <DeployFile LocalName="images\logo_144_144.png" Configuration="Release" Class="Android_LauncherIcon144">
+                    <Platform Name="Android64">
+                        <RemoteName>ic_launcher.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="images\splash_logo_960_720.png" Configuration="Debug" Class="Android_SplashImage960">
+                <DeployFile LocalName="Android\Release\AndroidManifest.xml" Configuration="Release" Class="ProjectAndroidManifest">
                     <Platform Name="Android">
-                        <RemoteName>splash_image.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

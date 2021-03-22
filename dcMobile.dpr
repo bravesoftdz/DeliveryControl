@@ -11,7 +11,7 @@ uses
   Common.Params in 'Common\Common.Params.pas',
   Model.RESTCadastro in 'Model\Model.RESTCadastro.pas',
   Controller.RESTCadastro in 'Controller\Controller.RESTCadastro.pas',
-  View.Extratos in 'View\View.Extratos.pas' {view_Extratos},
+  View.EntregasDia in 'View\View.EntregasDia.pas' {view_EntregasDia},
   View.Main in 'View\View.Main.pas' {view_Main},
   Model.RESTLogin in 'Model\Model.RESTLogin.pas',
   Controller.RESTLogin in 'Controller\Controller.RESTLogin.pas',
@@ -30,7 +30,8 @@ uses
   Controller.RESTEntregas in 'Controller\Controller.RESTEntregas.pas',
   Model.RESTExtravios in 'Model\Model.RESTExtravios.pas',
   Controller.RESTExtravios in 'Controller\Controller.RESTExtravios.pas',
-  Common.Utils in 'Common\Common.Utils.pas';
+  Common.Utils in 'Common\Common.Utils.pas',
+  View.Extratos in 'View\View.Extratos.pas' {view_Extratos};
 
 {$R *.res}
 
