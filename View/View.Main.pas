@@ -23,6 +23,9 @@ type
     rectangleTitle: TRectangle;
     labelTitle: TLabel;
     imageExit: TImage;
+    actionEntregasDia: TAction;
+    rectangleEntregasDia: TRectangle;
+    labelAcampanhamento: TLabel;
     procedure imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure actionExitExecute(Sender: TObject);
     procedure rectangleExtratoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
@@ -31,10 +34,14 @@ type
     procedure rectangleBoletoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure rectangleBoletoMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure actionBoletosExecute(Sender: TObject);
+    procedure actionEntregasDiaExecute(Sender: TObject);
+    procedure rectangleEntregasDiaMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+    procedure rectangleEntregasDiaMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
   private
     { Private declarations }
     procedure OpenFormExtratos;
     procedure OpenFormBoletos;
+    procedure OpenFormEntregasDia;
   public
     { Public declarations }
   end;
@@ -46,11 +53,16 @@ implementation
 
 {$R *.fmx}
 
-uses View.Extratos, View.Boletos;
+uses View.Extratos, View.Boletos, View.EntregasDia;
 
 procedure Tview_Main.actionBoletosExecute(Sender: TObject);
 begin
   OpenFormBoletos;
+end;
+
+procedure Tview_Main.actionEntregasDiaExecute(Sender: TObject);
+begin
+   OpenFormEntregasDia;
 end;
 
 procedure Tview_Main.actionExitExecute(Sender: TObject);
@@ -76,6 +88,15 @@ begin
   view_Boletos.Show;
 end;
 
+procedure Tview_Main.OpenFormEntregasDia;
+begin
+  if not Assigned(view_EntregasDia) then
+  begin
+    Application.CreateForm(Tview_EntregasDia, view_EntregasDia);
+  end;
+  view_EntregasDia.Show;
+end;
+
 procedure Tview_Main.OpenFormExtratos;
 begin
   if not Assigned(view_Extratos) then
@@ -94,6 +115,17 @@ procedure Tview_Main.rectangleBoletoMouseUp(Sender: TObject; Button: TMouseButto
 begin
   TRectangle(Sender).Opacity := 1;
   actionBoletosExecute(Sender);
+end;
+
+procedure Tview_Main.rectangleEntregasDiaMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+begin
+  TRectangle(Sender).Opacity := 0.8;
+end;
+
+procedure Tview_Main.rectangleEntregasDiaMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+begin
+  TRectangle(Sender).Opacity := 1;
+  actionEntregasDiaExecute(Sender);
 end;
 
 procedure Tview_Main.rectangleExtratoMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);

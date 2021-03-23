@@ -68,6 +68,15 @@ type
     memTableLancamentosval_lancamento: TWideStringField;
     memTableEntregascod_cliente: TStringField;
     memTableEntregasdes_tipo: TStringField;
+    memTableEntregasDia: TFDMemTable;
+    memTableEntregasDiacod_cliente: TStringField;
+    memTableEntregasDiadat_baixa: TStringField;
+    memTableEntregasDiaqtd_entregas: TStringField;
+    memTableEntregasDiades_tipo: TStringField;
+    memTableEntregasDetalhe: TFDMemTable;
+    memTableEntregasDetalhenum_remessa: TStringField;
+    memTableEntregasDetalheqtd_peso: TStringField;
+    memTableEntregasDetalhedes_tipo: TStringField;
   private
     { Private declarations }
   public

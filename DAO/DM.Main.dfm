@@ -345,4 +345,52 @@ object DM_Main: TDM_Main
       Size = 255
     end
   end
+  object memTableEntregasDia: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 272
+    Top = 72
+    object memTableEntregasDiacod_cliente: TStringField
+      FieldName = 'cod_cliente'
+      Size = 5
+    end
+    object memTableEntregasDiadat_baixa: TStringField
+      FieldName = 'dat_baixa'
+      Size = 10
+    end
+    object memTableEntregasDiaqtd_entregas: TStringField
+      FieldName = 'qtd_entregas'
+      Size = 6
+    end
+    object memTableEntregasDiades_tipo: TStringField
+      FieldName = 'des_tipo'
+    end
+  end
+  object memTableEntregasDetalhe: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 272
+    Top = 128
+    object memTableEntregasDetalhenum_remessa: TStringField
+      FieldName = 'num_remessa'
+    end
+    object memTableEntregasDetalheqtd_peso: TStringField
+      FieldName = 'qtd_peso'
+      Size = 15
+    end
+    object memTableEntregasDetalhedes_tipo: TStringField
+      FieldName = 'des_tipo'
+      Size = 30
+    end
+  end
 end

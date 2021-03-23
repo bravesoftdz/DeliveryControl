@@ -40,6 +40,7 @@ type
     labelTitulo: TLabel;
     labelPeriodo: TLabel;
     stringColumnUnitario: TStringColumn;
+    Label2: TLabel;
     procedure imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure FormCreate(Sender: TObject);
     procedure rectangleFilterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);

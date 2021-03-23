@@ -11,7 +11,6 @@ uses
   Common.Params in 'Common\Common.Params.pas',
   Model.RESTCadastro in 'Model\Model.RESTCadastro.pas',
   Controller.RESTCadastro in 'Controller\Controller.RESTCadastro.pas',
-  View.EntregasDia in 'View\View.EntregasDia.pas' {view_EntregasDia},
   View.Main in 'View\View.Main.pas' {view_Main},
   Model.RESTLogin in 'Model\Model.RESTLogin.pas',
   Controller.RESTLogin in 'Controller\Controller.RESTLogin.pas',
@@ -26,12 +25,18 @@ uses
   View.BaixaBoletos in 'View\View.BaixaBoletos.pas' {view_BaixaBoletos},
   Model.RESTExtrato in 'Model\Model.RESTExtrato.pas',
   Controller.RESTExtratos in 'Controller\Controller.RESTExtratos.pas',
-  Model.RESTEentregas in 'Model\Model.RESTEentregas.pas',
-  Controller.RESTEntregas in 'Controller\Controller.RESTEntregas.pas',
+  Model.RESTEentregasDetalhe in 'Model\Model.RESTEentregasDetalhe.pas',
+  Controller.RESTEntregasDetalhe in 'Controller\Controller.RESTEntregasDetalhe.pas',
   Model.RESTExtravios in 'Model\Model.RESTExtravios.pas',
   Controller.RESTExtravios in 'Controller\Controller.RESTExtravios.pas',
   Common.Utils in 'Common\Common.Utils.pas',
-  View.Extratos in 'View\View.Extratos.pas' {view_Extratos};
+  View.Extratos in 'View\View.Extratos.pas' {view_Extratos},
+  Model.RESTEentregas in 'Model\Model.RESTEentregas.pas',
+  Controller.RESTEntregas in 'Controller\Controller.RESTEntregas.pas',
+  View.EntregasDetalhe in 'View\View.EntregasDetalhe.pas' {view_EntregasDetalhe},
+  View.EntregasDia in 'View\View.EntregasDia.pas' {view_EntregasDia},
+  Model.RESTEentregasDia in 'Model\Model.RESTEentregasDia.pas',
+  Controller.RESTEntregasDia in 'Controller\Controller.RESTEntregasDia.pas';
 
 {$R *.res}
 
