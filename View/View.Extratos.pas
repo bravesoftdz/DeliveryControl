@@ -21,8 +21,6 @@ type
     labelMes: TLabel;
     stringGridExtrato: TStringGrid;
     layoutFooter: TLayout;
-    labelTotal: TLabel;
-    labelValorTotal: TLabel;
     comboBoxAno: TComboBox;
     comboBoxMes: TComboBox;
     imageSearch: TImage;
@@ -37,10 +35,10 @@ type
     stringColumnQtde: TStringColumn;
     labelDia: TLabel;
     comboBoxDia: TComboBox;
+    stringColumnUnitario: TStringColumn;
+    labelDEscricao: TLabel;
     labelTitulo: TLabel;
     labelPeriodo: TLabel;
-    stringColumnUnitario: TStringColumn;
-    Label2: TLabel;
     procedure imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure FormCreate(Sender: TObject);
     procedure rectangleFilterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
@@ -48,6 +46,7 @@ type
     procedure actionProcessarExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imageSearchMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     procedure SetupYears;
@@ -111,6 +110,11 @@ begin
   SetupYears;
 end;
 
+procedure Tview_Extratos.FormShow(Sender: TObject);
+begin
+  labelDEscricao.Text := Self.Caption;
+end;
+
 procedure Tview_Extratos.imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
 begin
   Close;
@@ -123,7 +127,6 @@ end;
 
 procedure Tview_Extratos.LimpaTela;
 begin
-  labelValorTotal.Text := '0,00';
   labelPeriodo.Text := '';
   stringGridExtrato.RowCount := 0;
 end;
@@ -199,7 +202,14 @@ begin
       sData := FormatDateTime('yyyy-mm-dd', dtDataFinal);
       ProcessaExtravios('', sExtratos);
       ProcessaLancamentos('', sdata, sExtratos);
-      labelValorTotal.Text := FormatFloat('#,##0.00;-#,##0.00', dTotal);
+      if dTotal > 0 then
+      begin
+        stringGridExtrato.RowCount := (stringGridExtrato.RowCount + 1);
+        i := Pred(stringGridExtrato.RowCount);
+        stringGridExtrato.Cells[1,i] := 'Tot. Geral';
+        stringGridExtrato.Cells[3,i] := FormatFloat('#,##0.00;-#,##0.00', dTotal);
+      end;
+      dTotal := 0;
     end;
   finally
     DM_Main.memTableExtrato.Close;
@@ -401,7 +411,14 @@ begin
         Inc(i, 1);
         DM_Main.memTableEntregas.Next;
       end;
-      labelValorTotal.Text := FormatFloat('#,##0.00;-#,##0.00', dTotal);
+      if dTotal > 0 then
+      begin
+        stringGridExtrato.RowCount := (stringGridExtrato.RowCount + 1);
+        i := Pred(stringGridExtrato.RowCount);
+        stringGridExtrato.Cells[1,i] := 'Tot. Geral';
+        stringGridExtrato.Cells[3,i] := FormatFloat('#,##0.00;-#,##0.00', dTotal);
+      end;
+      dTotal := 0;
     end;
   finally
     DM_Main.memTableEntregas.Close;

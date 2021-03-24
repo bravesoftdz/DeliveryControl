@@ -24,7 +24,7 @@ type
     rectangleTitle: TRectangle;
     imageExit: TImage;
     labelTitle: TLabel;
-    Label2: TLabel;
+    labelDescricao: TLabel;
     ctringColumnRemessa: TStringColumn;
     floatColumnPeso: TFloatColumn;
     stringColumnTipo: TStringColumn;
@@ -38,9 +38,11 @@ type
   public
     { Public declarations }
     sEntregador,sData, sCliente: String;
+    sTitulo : String;
   end;
 var
   view_EntregasDetalhe: Tview_EntregasDetalhe;
+
 
 implementation
 
@@ -48,7 +50,7 @@ implementation
 {$R *.NmXhdpiPh.fmx ANDROID}
 {$R *.LgXhdpiPh.fmx ANDROID}
 
-uses DM.Main, Common.Params;
+uses DM.Main, Common.Params, Common.Notificacao;
 
 procedure Tview_EntregasDetalhe.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -57,6 +59,7 @@ end;
 
 procedure Tview_EntregasDetalhe.FormShow(Sender: TObject);
 begin
+  labelDescricao.Text := Self.Caption + sTitulo;
   ProcessExtrato(sEntregador, sData, sCliente);
 end;
 
@@ -67,6 +70,7 @@ end;
 
 procedure Tview_EntregasDetalhe.LimpaTela;
 begin
+  labelDescricao.Text := 'Descrição';
   stringGridExtrato.RowCount := 0;
 end;
 
@@ -75,7 +79,7 @@ procedure Tview_EntregasDetalhe.ProcessExtrato(sentregador, sdata, scliente: Str
 var
   FEntregas: TRESTEntregasDetalheController;
   sDescricao, sPeso, sRemessa: String;
-  i: Integer;
+  i, iTotal: Integer;
 begin
   try
     FEntregas := TRESTEntregasDetalheController.Create;
@@ -83,6 +87,7 @@ begin
     begin
       DM_Main.memTableEntregasDetalhe.First;
       i := 0;
+      iTotal := 0;
       while not DM_Main.memTableEntregasDetalhe.Eof do
       begin
         sDescricao := '';
@@ -104,8 +109,21 @@ begin
         stringGridExtrato.Cells[0,i] := sRemessa;
         stringGridExtrato.Cells[1,i] := sPeso;
         stringGridExtrato.Cells[2,i] := sDescricao;
+        Inc(iTotal,1);
         DM_Main.memTableEntregasDetalhe.Next;
       end;
+      if iTotal > 0 then
+      begin
+        stringGridExtrato.RowCount := (stringGridExtrato.RowCount + 1);
+        i := Pred(stringGridExtrato.RowCount);
+        stringGridExtrato.Cells[1,i] := 'Total';
+        stringGridExtrato.Cells[2,i] := FormatFloat('###,##0;(###,##0)', iTotal);
+      end
+      else
+      begin
+        Common.Notificacao.TLoading.ToastMessage(Self, 'Nenhuma entrega localizada!', TAlignLayout.Bottom, $FFFF0000, $FFFFFFFF);
+      end;
+      iTotal := 0;
     end;
   finally
     DM_Main.memTableEntregasDetalhe.Close;

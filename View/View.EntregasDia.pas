@@ -25,7 +25,6 @@ type
     rectangleTitle: TRectangle;
     imageExit: TImage;
     labelTitle: TLabel;
-    labelTitulo: TLabel;
     dateEditInicial: TDateEdit;
     labelInicial: TLabel;
     dateEditFinal: TDateEdit;
@@ -35,20 +34,15 @@ type
     dateColumnData: TDateColumn;
     integerColumnQtde: TIntegerColumn;
     integerColumnCodCliente: TIntegerColumn;
-    Label2: TLabel;
-    rectangleDetalhe: TRectangle;
-    labelDetalhe: TLabel;
+    labelDescricao: TLabel;
     actionDetalhar: TAction;
+    CornerButton1: TCornerButton;
     procedure imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-    procedure rectangleFilterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure actionProcessarExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure imageSearchMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure FormShow(Sender: TObject);
-    procedure stringGridExtratoCellDblClick(const Column: TColumn; const Row: Integer);
     procedure actionDetalharExecute(Sender: TObject);
-    procedure rectangleDetalheMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-    procedure rectangleDetalheMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
   private
     { Private declarations }
     procedure ProcessExtrato(sentregador, sdataini, sdatafim: String);
@@ -68,7 +62,7 @@ implementation
 {$R *.NmXhdpiPh.fmx ANDROID}
 {$R *.LgXhdpiPh.fmx ANDROID}
 
-uses DM.Main, Common.Params, View.EntregasDetalhe;
+uses DM.Main, Common.Params, View.EntregasDetalhe, Common.Notificacao;
 
 procedure Tview_EntregasDia.actionDetalharExecute(Sender: TObject);
 begin
@@ -84,19 +78,31 @@ end;
 
 procedure Tview_EntregasDia.DetalhaEntregas;
 var
-  sEntregador, sData, sCliente: String;
+  sEntregador, sData, sCliente, sTitulo: String;
   i: Integer;
 begin
-  if stringGridExtrato.RowCount = 0 then Exit;
+  if stringGridExtrato.RowCount = 0 then
+  begin
+    Common.Notificacao.TLoading.ToastMessage(Self, 'Período não listado!', TAlignLayout.Bottom, $FFFF0000, $FFFFFFFF);
+    Exit;
+  end;
   i := stringGridExtrato.Row;
+  if stringGridExtrato.Cells[0,i].IsEmpty then
+  begin
+    Common.Notificacao.TLoading.ToastMessage(Self, 'Selecione uma linha!', TAlignLayout.Bottom, $FFFF0000, $FFFFFFFF);
+    Exit;
+  end;
   if not Assigned(view_EntregasDetalhe) then
   begin
     Application.CreateForm(Tview_EntregasDetalhe, view_EntregasDetalhe);
   end;
+  sTitulo := '';
   sData := FormatDateTime('yyyy-mm-dd', StrToDateDef(stringGridExtrato.Cells[1,i],0));
   view_EntregasDetalhe.sEntregador :=  Common.Params.paramCodigosEntregadores;
   view_EntregasDetalhe.sData := sData;
   view_EntregasDetalhe.sCliente := stringGridExtrato.Cells[4,i];
+  sTitulo := view_EntregasDetalhe.Caption;
+  view_EntregasDetalhe.sTitulo := ' - ' + stringGridExtrato.Cells[0,i] + ' - ' + stringGridExtrato.Cells[1,i] ;
   view_EntregasDetalhe.Show;
 end;
 
@@ -109,6 +115,7 @@ procedure Tview_EntregasDia.FormShow(Sender: TObject);
 begin
   dateEditInicial.Date := Now;
   dateEditFinal.Date := Now;
+  labelDescricao.Text := Self.Caption;
 end;
 
 procedure Tview_EntregasDia.imageExitMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
@@ -136,6 +143,7 @@ var
 begin
   try
     FEntregas := TRESTEntregasDiaController.Create;
+    stringGridExtrato.RowCount := 0;
     if FEntregas.SearchEntregas(sentregador, sdataini, sdatafim) then
     begin
       DM_Main.memTableEntregasDia.First;
@@ -216,27 +224,6 @@ begin
     DM_Main.memTableEntregasDia.Close;
     FEntregas.Free;
   end;
-end;
-
-procedure Tview_EntregasDia.rectangleDetalheMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-begin
-  TRectangle(Sender).Opacity := 0.8;
-end;
-
-procedure Tview_EntregasDia.rectangleDetalheMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-begin
-  TRectangle(Sender).Opacity := 1;
-  actionDetalharExecute(Sender);
-end;
-
-procedure Tview_EntregasDia.rectangleFilterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-begin
-  TRectangle(Sender).Opacity := 0.8;
-end;
-
-procedure Tview_EntregasDia.stringGridExtratoCellDblClick(const Column: TColumn; const Row: Integer);
-begin
-  DetalhaEntregas;
 end;
 
 function Tview_EntregasDia.ValidaDados: boolean;
