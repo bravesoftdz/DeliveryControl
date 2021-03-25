@@ -2,8 +2,8 @@
 <!-- BEGIN_INCLUDE(manifest) -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.novorioexpress.dcMobile"
-        android:versionCode="14"
-        android:versionName="1.13.1"
+        android:versionCode="15"
+        android:versionName="1.15.0"
         android:installLocation="auto">
 
     <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29" />
